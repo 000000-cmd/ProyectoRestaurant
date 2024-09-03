@@ -1,0 +1,73 @@
+.form_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form_button>a{
+    text-decoration: none;
+    color: var(--blanco);
+    
+}
+.button_container{
+    width: 100%;
+
+}
+
+.primary_button{
+    width: 45%;
+    height: 50px;
+    background-color: var(--primario);
+    color: var(--secundario);
+    border-radius: var(--border_radius);
+    font-size: var(--fuente-body-small);
+    font-family: var(--fuente-secundaria);
+
+}
+.secundary_button{
+    width: 45%;
+    height: 50px;
+    background-color: transparent;
+    color: var(--primario);
+    border-radius: var(--border_radius);
+    border: 1px var(--primario) solid;
+    font-size: var(--fuente-body-small);
+    font-family: var(--fuente-secundaria);
+}
+
+button{
+    font-size: var(--fuente-button-normal-semibold);
+    font-weight: var(--fuente-button-normal-semibold-weight);
+}
+
+.status_order{
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+}
+
+.complete{
+    background-color: #324C4F;
+    color: #50D1AA;
+}
+.porpargar{
+    background-color: #446887;
+    color: #7EC2FC;
+}
+
+
+.pendiente{
+    background-color: #B56124;
+    color: #FFD100;
+}
+.preparacion{
+    background-color: #171573;
+    color: #8FCFFF;
+}
+
+

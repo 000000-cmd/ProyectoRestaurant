@@ -1,3 +1,7 @@
+@import url(Buttons.css);
+@import url(fonts.css);
+@import url(sidebar.css);
+
 :root {
     --background1: #242533;
     --background2: #1F1D2B;
@@ -52,17 +56,10 @@
     --fuente-button-small-semibold-weight: 600; /* Semibold */
 }
 
+
 body {
     font-family: var(--fuente-secundaria); /* Fuente predeterminada para el cuerpo */
     color: #fff; /* Ajusta el color de texto según tu tema */
-}
-
-.h2 {
-    font-size: var(--fuente-header-h2);
-    font-weight: var(--fuente-header-h2-weight);
-    font-family: var(--fuente-primaria); /* Fuente para encabezados */
-    margin-bottom: 10px;
-    display: block;
 }
 * {
     margin: 0;
@@ -81,27 +78,16 @@ body {
     border-radius: var(--border_radius);
 }
 
-.background_login{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.login_container{
-    display: grid;
-    grid-template-rows: repeat(3, 1fr); 
-    /*grid-template-rows: 1fr 2fr 1fr;*/
-    gap: 10px; 
-    width: 35vw;
-    height: 60vh; 
-}
 
 .img_container{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1e1e2d; 
 }
-.img_container>img{
+
+.logo_login>img{
     width: 100px;
 }
 .form_input{
@@ -123,7 +109,6 @@ body {
     outline: none; 
     transition: all 0.3s ease; 
 }
-
 .form_input>label{
     color: var(--blanco);
 }
@@ -138,63 +123,6 @@ input:focus {
     background-color: #2a2837; /* Ajuste de fondo en foco */
 }
 
-.form_login{
-    display: flex;
-    justify-content: center;
 
-}
-.form_button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-}
 
-.form_button>a{
-    text-decoration: none;
-    color: var(--blanco);
-    
-}
-.button_container{
-    width: 100%;
 
-}
-
-.primary_button{
-    width: 170px;
-    height: 50px;
-    background-color: var(--primario);
-    color: var(--secundario);
-    border-radius: var(--border_radius);
-    font-size: var(--fuente-body-small);
-    font-family: var(--fuente-secundaria);
-
-}
-
-button{
-    font-size: var(--fuente-button-normal-semibold);
-    font-weight: var(--fuente-button-normal-semibold-weight);
-}
-
-/*FUENTES*/
-
-h1 {
-    font-size: var(--fuente-header-h1);
-    font-weight: var(--fuente-header-h1-weight);
-}
-
-h2 {
-    font-size: var(--fuente-header-h2);
-    font-weight: var(--fuente-header-h2-weight);
-}
-
-p.small {
-    font-size: var(--fuente-body-small-regular);
-    font-weight: var(--fuente-body-small-regular-weight);
-}
-
-p.normal {
-    font-size: var(--fuente-body-normal-regular);
-    font-weight: var(--fuente-body-normal-regular-weight);
-}
