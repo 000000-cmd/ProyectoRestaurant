@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="resources/CSS/Styles.css">
-    <link rel="stylesheet" href="resources/CSS/dashboard.css">
+    <link rel="stylesheet" href="resources/CSS/historico.css">
 </head>
 <body>
     <div class="background1 background_dashboard">
@@ -33,56 +33,20 @@
             </ul>
         </aside>
         <main class="main_content">
-            <section class="content ">
+            <section class="content">
                 <header class="header">
-                    <h1>Dashboard</h1>
-                    <h2>Jueves, 17/oct</h2>
+                    <h1>HISTORIAL</h1>
                 </header>
                 <div class="contenido">
-                    <div class="cards__container">
-                        <div class="card background2">
-                            <div class="header_card">
-                                <div class="img_card__container">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="#9288E0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0"/><path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1-1.8-1M12 7v10"/></g></svg>
-                                </div>
-                                <div class="porcent__container">
-                                    <p>32,5%</p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#65a30d" d="M11.5 15.385h1.02v-4.912l2.1 2.1l.688-.688l-3.289-3.289l-3.308 3.289l.689.688l2.1-2.1zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/></svg>
-                                </div>
-                            </div>
-                            <div class="header_data">
-                                <h2>$10,203.01</h2>
-                                <p>Ingresos totales</p>
-                            </div>
-                        </div>
-                        <div class="card background2">
-                            <div class="header_card">
-                                <div class="img_card__container">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="#FFB572" d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v16.028c0 1.22-1.38 1.93-2.372 1.221L12 18.229l-5.628 4.02c-.993.71-2.372 0-2.372-1.22zm3-1a1 1 0 0 0-1 1v15.057l5.128-3.663a1.5 1.5 0 0 1 1.744 0L18 20.057V5a1 1 0 0 0-1-1z"/></g></svg>
-                                </div>
-                                <div class="porcent__container">
-                                    <p>32,5%</p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#65a30d" d="M11.5 15.385h1.02v-4.912l2.1 2.1l.688-.688l-3.289-3.289l-3.308 3.289l.689.688l2.1-2.1zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/></svg>
-                                </div>
-                            </div>
-                            <div class="header_data">
-                                <h2>$10,203.01</h2>
-                                <p class="normal">Ingresos totales</p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="order_active background2">
-                        <header class="order_active__header">
-                            Pedidos Activos
-                        </header>
-                        <div class="table-container">
+                    <div class="registro_tabla background2">
+                        <div class="table-container container__registro">
                             <table class="tabla">
                                 <thead>
                                     <tr>
-                                        <th>Cliente</th>
-                                        <th>Pedido</th>
-                                        <th>Pago Total</th>
+                                        <th>Mesa</th>
+                                        <th>Menu</th>
+                                        <th>Total Pagado</th>
+                                        <th>Fecha Realizacion</th>
                                         <th>Estado</th>
                                     </tr>
                                 </thead>
@@ -130,45 +94,6 @@
                 </div>
                 
             </section>
-            <div class="estadisticas_side">
-                <div class="most_ordened__conteiner background2">
-                    <header class="most_ordened__title">  <h2>Mas ordernado</h2></header>
-                    <hr class="linea">
-                    <div class="plato_list">
-                        <div class="plato_item">
-                            <img src="resources/images/Images.png" alt="" srcset="">
-                            <div class="plate_details">
-                                <p>Lorem, ipsum dolor.</p>
-                                <p>Lorem, ipsum.</p>
-                            </div>
-                        </div>
-                        <div class="plato_item">
-                            <img src="resources/images/Images.png" alt="" srcset="">
-                            <div class="plate_details">
-                                <p>Lorem, ipsum dolor.</p>
-                                <p>Lorem, ipsum.</p>
-                            </div>
-                        </div>
-                        <div class="plato_item">
-                            <img src="resources/images/Images.png" alt="" srcset="">
-                            <div class="plate_details">
-                                <p>Lorem, ipsum dolor.</p>
-                                <p>Lorem, ipsum.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button_container most_ordened__button">
-                        <button class="secundary_button">Ver todos</button>
-                    </div>
-                </div>
-                <div class="graph__container background2">
-                    <header class="most_ordened__title">  <h2>Plato mas vendido</h2></header>
-                    <hr class="linea">
-                    <canvas class="graph_container">
-
-                    </canvas>     
-                </div>
-            </div>
             </main>
     </div>
     <script src="resources/js/sidebar.js"></script>

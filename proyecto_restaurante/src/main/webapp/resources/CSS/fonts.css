@@ -11,17 +11,19 @@ h2 {
 p.small {
     font-size: var(--fuente-body-small-regular);
     font-weight: var(--fuente-body-small-regular-weight);
+    color: var(--font_difuso);
 }
 
 p.normal {
     font-size: var(--fuente-body-normal-regular);
     font-weight: var(--fuente-body-normal-regular-weight);
+    color: var(--font_difuso);
 }
 
 .h2 {
     font-size: var(--fuente-header-h2);
     font-weight: var(--fuente-header-h2-weight);
-    font-family: var(--fuente-primaria); /* Fuente para encabezados */
+    font-family: var(--fuente-primaria); 
     margin-bottom: 10px;
     display: block;
 }

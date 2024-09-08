@@ -1,14 +1,16 @@
 @import url(Buttons.css);
 @import url(fonts.css);
 @import url(sidebar.css);
-
+@import url(tabla.css);
 :root {
     --background1: #242533;
     --background2: #1F1D2B;
     --primario: #FACE8D;
+    --primario-rgb: 250, 206, 141;
     --secundario:#081212;
     --blanco: #fff;
     --disabled: rgba(255, 255, 255, 0.8);
+    --font_difuso: #ABBBC2;
 
     --border_radius:15px;
 
@@ -78,6 +80,17 @@ body {
     border-radius: var(--border_radius);
 }
 
+.content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+    padding-left: 5%;
+    gap: 1rem;
+}
+.main_container__header{
+    padding: 30px 10px 20px 20px ;
+}
 
 
 .img_container{
@@ -126,3 +139,20 @@ input:focus {
 
 
 
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}

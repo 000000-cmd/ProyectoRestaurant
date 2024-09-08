@@ -1,0 +1,20 @@
+
+
+.gestion_mesas__container{
+    height: 65%;
+    padding: 0 20px;
+}
+
+
+
+
+
+
+.horizontal_buttons{
+    flex-direction: row;
+}
+
+
+.form_button--witdh45{
+    width: 45%;
+}

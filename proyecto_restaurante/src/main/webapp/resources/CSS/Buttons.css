@@ -70,4 +70,16 @@ button{
     color: #8FCFFF;
 }
 
+.low_opacity_button {
+    background-color: rgba(var(--primario-rgb), 0.4);
+    border: none;
+    color: var(--primario);
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+
+.low_opacity_button:hover {
+    background-color: rgba(var(--primario-rgb), 0.6); 
+}
+
 
