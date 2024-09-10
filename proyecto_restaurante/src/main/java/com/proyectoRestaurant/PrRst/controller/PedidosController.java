@@ -44,15 +44,6 @@ public class PedidosController {
         try {
             // Si ya existe un pedido para la mesa, eliminarlo antes de insertar el nuevo
             if (pedidoExists > 0) {
-                // Primero elimina los registros relacionados en contenido_pedidos
-                String deleteContenidoSql = "DELETE FROM contenido_pedidos WHERE id_pedido = (SELECT id_pedido FROM pedidos WHERE mesa = ?)";
-                jdbcTemplate.update(deleteContenidoSql, mesa);
-
-                // Si también tienes detalles en detalle_pedido, elimina esos registros
-                String deleteDetalleSql = "DELETE FROM detalle_pedido WHERE id_pedido = (SELECT id_pedido FROM pedidos WHERE mesa = ?)";
-                jdbcTemplate.update(deleteDetalleSql, mesa);
-
-                // Ahora elimina el pedido de la tabla pedidos
                 String deletePedidoSql = "DELETE FROM pedidos WHERE mesa = ?";
                 jdbcTemplate.update(deletePedidoSql, mesa);
             }
@@ -429,21 +420,17 @@ public class PedidosController {
 
 
 
-    @GetMapping("/historico-pedidos/pdf")
-    public ResponseEntity<byte[]> getPdfByFechaHora(@RequestParam String fechaHoraCompletado) {
+    @GetMapping("/historico-pedidos/todos")
+    public ResponseEntity<List<Map<String, Object>>> getAllHistoricoPedidos() {
         try {
-            String sql = "SELECT factura_pdf FROM historico_pedidos WHERE fecha_hora_completado = ?";
-            byte[] pdfBytes = jdbcTemplate.queryForObject(sql, new Object[]{fechaHoraCompletado}, byte[].class);
+            String sql = "SELECT * FROM historico_pedidos";
+            List<Map<String, Object>> pedidos = jdbcTemplate.queryForList(sql);
 
-            if (pdfBytes == null) {
+            if (pedidos.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("attachment", "factura.pdf");
-
-            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            return new ResponseEntity<>(pedidos, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

@@ -61,7 +61,7 @@ public class PlatosController {
     }
 
 
-// Modificar un plato existente con todos los datos obligatorios
+    // Modificar un plato existente con todos los datos obligatorios
     @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public Map<String, Object> updatePlato(@PathVariable int id,
                                            @RequestParam("nombre_plato") String nombrePlato,

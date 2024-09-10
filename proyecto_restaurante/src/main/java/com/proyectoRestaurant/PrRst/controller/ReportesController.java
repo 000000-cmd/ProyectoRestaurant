@@ -62,7 +62,7 @@ public class ReportesController {
 
             // Consulta para obtener los tres platos más vendidos y la cantidad vendida en el rango de fechas
             String sqlPlatosMasVendidos = """
-                SELECT p.nombre_plato, pc.categoria, SUM(vd.cantidad_vendida) as cantidad_vendida
+                SELECT p.id_plato ,p.nombre_plato, pc.categoria, SUM(vd.cantidad_vendida) as cantidad_vendida
                 FROM ventas_detalles vd
                 JOIN platos p ON vd.id_plato = p.id_plato
                 JOIN platos_categorias pc ON p.id_categoria = pc.id_categoria
@@ -78,7 +78,7 @@ public class ReportesController {
             // Consulta para obtener el total recaudado por cada plato específico en el rango de fechas
             // Incluye todos los platos incluso si no han sido vendidos
             String sqlRecaudoPorTipoPlato = """
-                SELECT p.nombre_plato, pc.categoria, COALESCE(SUM(vd.subtotal), 0) as total_recaudo
+                SELECT p.id_plato ,p.nombre_plato, pc.categoria, COALESCE(SUM(vd.subtotal), 0) as total_recaudo
                 FROM platos p
                 LEFT JOIN ventas_detalles vd ON vd.id_plato = p.id_plato
                 LEFT JOIN historico_pedidos hp ON vd.id_historico = hp.id_historico AND DATE(hp.fecha_hora_completado) BETWEEN ? AND ?
@@ -115,6 +115,3 @@ public class ReportesController {
         return response;
     }
 }
-
-
-
