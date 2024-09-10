@@ -1,8 +1,9 @@
-import { obtenerReporte } from "../../SolicitudesAPI/gestionarReportes.js";
+
 import { obtenerPlatos } from "../../SolicitudesAPI/gestionarPlatos.js";
+import { renderImage } from "./componentes/renderImage.js";
 
 // Función para mostrar los platos más vendidos
-export async function mostrarPlatosMasVendidos(tipo, fecha) {
+export async function mostrarPlatosMasVendidos(tipo, fecha, obtenerReporte) {
     try {
         // Obtener el reporte de los platos más vendidos
         const reporte = await obtenerReporte(tipo, fecha);
@@ -38,7 +39,7 @@ export async function mostrarPlatosMasVendidos(tipo, fecha) {
 
             // Crear el elemento de imagen
             const img = document.createElement('img');
-            img.src = plato.img_plato ? `data:image/jpeg;base64,${plato.img_plato}` : 'resources/images/Images.png';
+            img.src =  renderImage(plato.img_plato)
             img.alt = plato.nombre_plato;
 
             // Crear el contenedor de los detalles del plato

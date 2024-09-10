@@ -20,16 +20,16 @@ function crearFila(pedido) {
 
     // Asignar clase según el estado del pedido
     switch (estadoNormalizado) {
-        case 'completado':
+        case 'Completado':
             estadoDiv.className = 'status_order complete';
             break;
-        case 'por pagar':
+        case 'Por pagar':
             estadoDiv.className = 'status_order porpargar';
             break;
-        case 'en preparacion':
+        case 'En preparacion':
             estadoDiv.className = 'status_order preparacion';
             break;
-        case 'preparado':
+        case 'Preparado':
             estadoDiv.className = 'status_order pendiente';
             break;
         default:
