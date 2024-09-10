@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/config_forms.css">
+    
+</head>
+<body>
+    <section class="background1 background_form">
+        <div class="background2 form_container">
+            <div class="form_title">
+                <h2 class="">Añadir Nuevo Plato</h2>
+            </div>
+            <div class="form_config">
+                <form class="config_form" method="post" id="addDish"> 
+                    <input type="hidden" id="id-plate" value="12321">
+                    <div class="form_content">
+                    <label for="imageUpload" class="custom-file-upload">
+                        <input  type="file" id="imageUpload" name="img_plato" accept="image/*">
+                        <h2>Añadir Plato</h2>
+                    </label>
+                    <div class=" config_inputs">
+                        <div class="uwu form_input">
+                            <label class="h2" for="select_plate">Categoría del Plato</label>
+                            <select name="id_categoria" id="select_plate"></select>
+                        
+                            <label class="h2" for="plate_name">Nombre del Plato</label>
+                            <input type="text" name="nombre_plato" id="plate_name" required>
+                        
+                            <label class="h2" for="plate_price">Precio del Plato</label>
+                            <input type="text" name="precio" id="plate_price" required>
+                        
+                            <label class="h2" for="plate_disponibility">Disponibilidad del Plato</label>
+                            <select type="text" name="disponibilidad" id="plate_disponibility">
+                                <option value="Disponible">Disponible</option>
+                                <option value="NoDisponible">No Disponible</option>
+                            </select>
+                        </div>
+
+                
+                        <label class="h2" for="plate_details">Descripcion del Plato</label>
+                        <textarea name="descripcion" id="plate_details" rows="4" required></textarea>
+                    </div>
+                    </div>
+                    <div class="button_container form_button">
+                        <button class="primary_button" type="submit"> Añadir</button>
+                        <button class="secundary_button"> Regresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="resources/js/componentes/inputImage.js"></script>
+    <script type="module" src="resources/js/config_forms.js"></script>
+    <script type="module" src="resources/js/select_Categorias.js"></script>
+</body>
+</html>

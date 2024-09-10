@@ -1,0 +1,86 @@
+
+.tabla{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: none;
+}
+.table-container {
+    max-height: 450px;  
+}
+
+th {
+    letter-spacing: 2px;
+}
+  
+td {
+    letter-spacing: 1px;
+}
+  
+tbody td {
+    text-align: center;
+}
+  
+tfoot th {
+    text-align: right;
+}
+th,
+td {
+padding: 20px;
+}
+
+
+/* Borde del encabezado*/
+thead {
+    border-bottom: 3px solid #393C49;
+}
+
+.table-container tbody {
+    display: block;  /* Permite scroll solo en el cuerpo */
+    max-height: 550px; /* Ajusta la altura máxima del tbody para scroll */
+    overflow-y: auto;
+}
+
+.table-container tr {
+    display: table;  /* Mantiene la estructura de fila */
+    width: 100%;     /* Asegura que las filas ocupen todo el ancho */
+    table-layout: fixed; /* Asegura alineación correcta de columnas */
+}
+
+/*Personalizar scroll de tablas*/
+.table-container tbody::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.table-container tbody::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px; 
+}
+
+.table-container tbody::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 10px; 
+}
+
+.table-container tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+}
+
+.progress-bar-container {
+    display: flex; /* Flex para alineación horizontal */
+    align-items: center; /* Centra verticalmente los elementos */
+}
+
+.full-progress-bar {
+    background-color: #e0e0e0; /* Fondo de la barra completa */
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100px; /* Ancho de la barra */
+    height: 15px; /* Alto de la barra */
+    margin-right: 10px; /* Espacio entre la barra y el texto */
+}
+
+.progress-bar {
+    background-color: #facd8d; /* Color de la barra de progreso */
+    height: 100%;
+}

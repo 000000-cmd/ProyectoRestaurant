@@ -82,4 +82,13 @@ button{
     background-color: rgba(var(--primario-rgb), 0.6); 
 }
 
+.new_button{
+    border: 1px dashed var(--primario);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
 

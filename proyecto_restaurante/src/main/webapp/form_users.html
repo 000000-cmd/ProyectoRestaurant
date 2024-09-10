@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/config_forms.css">
+    
+</head>
+<body>
+    <section class="background1 background_form">
+        <div class="background2 form_container">
+            <div class="form_title">
+                <h2 class="">Añadir Nuevo Plato</h2>
+            </div>
+            <div class="form_config">
+                <form class="config_form user_form" method="post" id="addDish"> 
+                    <input type="hidden" id="id-plate" value="12321">
+                    <div class="user_input form_input">
+                   
+                            <label class="h2" for="plate_name">Nombre del Usuario</label>
+                            <input type="text" name="nombre_plato" id="plate_name" required>
+
+                            <label class="h2" for="plate_disponibility">Rol del Usuario</label>
+                            <select type="text" name="disponibilidad" id="plate_disponibility">
+                            </select>
+
+                            <label class="h2" for="plate_price">Contraseña del usuario</label>
+                            <input type="text" name="precio" id="plate_price" required>
+                        
+
+                    </div>
+                    <div class="button_container form_button">  
+                        <button class="primary_button" type="submit"> Añadir</button>
+                        <button class="secundary_button"> Regresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="resources/js/inputImage.js"></script>
+    <script type="module" src="resources/js/config_forms.js"></script>
+    <script type="module" src="resources/js/select_Categorias.js"></script>
+
+</body>
+</html>
+

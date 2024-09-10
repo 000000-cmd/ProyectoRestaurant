@@ -1,0 +1,19 @@
+
+.new_user__container{
+    display: flex;
+    justify-content: right;
+    
+}
+
+.new_user__button{
+}
+
+.conf_usuarios__container{
+    height: 90%;
+    padding: 0 20px;
+}
+
+
+.container__conf_table{
+    max-height: 580px;
+}

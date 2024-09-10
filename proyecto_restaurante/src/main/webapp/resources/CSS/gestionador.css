@@ -1,80 +1,9 @@
-.main_content{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    gap: 5%;
-    padding: 18px 0;
-}
-
-.content__gestionador{
-
-    height: 100%;
-    padding-top: 6%;
-}
-
 
 .gestionador{
     height: 100%;
     padding: 0 20px;
 }
 
-
-.nav_link{
-    text-decoration: none;
-}
-
-.nav_container{
-    width: 30%;
-    
-    padding: 35px;
-}
-
-.nav{
-    width: 93%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-
-.nav_option{
-    display: flex;
-    width: 100%;
-    height: 80px;
-    gap: 15px;
-    padding: 0 25px;
-    transition: background-color 0.3s ease, transform 0.3s ease; 
-    text-decoration: none;
-    color: white;
-}
-
-.nav_option:hover{
-    background-color: rgba(var(--primario-rgb), 0.1);
-}
-
-
-
-.nav_selected{
-    background-color: rgba(var(--primario-rgb), 0.3);
-}
-
-.nav_img{
-    align-content: space-around;
-
-}
-
-.nav_selected>.nav_img{
-    color: var(--primario);
-}
-
-.nav_info{
-    align-content: space-around;
-
-}
-.nav_selected>.nav_info>h2{
-    color: var(--primario);
-}
 
 /*Indicador Estatico*/
 .selector {
@@ -153,7 +82,9 @@
     padding: 15px 0 ;
     display: block;
 }
-
+.img_dish__container>img{
+    width: 90%;
+}
 
 .card_container{
     width: 225px;
@@ -170,6 +101,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
+    color: var(--primario);
 }
 
 .edit_dish__button{

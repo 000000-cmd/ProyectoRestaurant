@@ -113,7 +113,6 @@
     background-color: #27293d; /* Fondo al pasar el cursor */
 }
 
-.sidebar_item:focus-within .svg_container,
 .sidebar_item.active .svg_container {
     transform: translateX(14px); /* Expande hacia la derecha */
 }

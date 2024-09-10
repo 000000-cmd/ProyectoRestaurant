@@ -29,7 +29,16 @@
     max-height: 650px;
 }
 
+.container__registro{
+    max-height: 650px;
+}
+
 .header{
     width: 100%;
     padding-left: 25px;
+}
+
+.bodyContainer{
+    max-height: 500px;
+    overflow-y: auto    ;
 }
