@@ -1,0 +1,122 @@
+
+.verPedido{
+    width: 100vw;
+}
+.title_plate{
+    width: 100%;
+    height: 35px;
+
+}
+.realizado{
+    color: var(--primario);
+    position: absolute;
+    left: 80%;
+}
+.hidden {
+    display: none;
+}
+
+.carousel-container {
+    position: relative;
+    width: 42vw; /* Ajusta el ancho según sea necesario */
+    height: 77vh;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #FFB572;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.carousel-button--left {
+    left: 10px;
+}
+
+.carousel-button--right {
+    right: 10px;
+}
+
+.button_container{
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+.slide_title{
+    display: flex;
+    width: 100%;
+    position: relative;
+
+}
+.slide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.carousel-slide.hidden {
+    display: none; /* O puedes usar visibility: hidden; */
+}
+
+.slide-content img {
+    max-width: 50%;
+    min-width: 35%;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+.details_content{
+    display: flex;
+    gap: 10px;
+    height: 250px;
+}
+
+.details {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin: 25px 0;
+    border-radius: 5px;
+    height: 60%;
+    min-width: 205px;
+    max-width: 250px;
+}
+

@@ -16,32 +16,31 @@
             </div>
             <div class="form_config">
                 <form class="config_form user_form" method="post" id="addDish"> 
-                    <input type="hidden" id="id-plate" value="12321">
+                    <input type="hidden" id="id-usuario" value="12321">
                     <div class="user_input form_input">
                    
-                            <label class="h2" for="plate_name">Nombre del Usuario</label>
-                            <input type="text" name="nombre_plato" id="plate_name" required>
+                            <label class="h2" for="nombre_usuario">Nombre del Usuario</label>
+                            <input type="text" name="nombre_usuario" id="nombre_usuario" required>
 
-                            <label class="h2" for="plate_disponibility">Rol del Usuario</label>
-                            <select type="text" name="disponibilidad" id="plate_disponibility">
+                            <label class="h2" for="rol_usuario">Rol del Usuario</label>
+                            <select type="text" name="rol_usuario" id="rol_usuario">
+                                <option value="muejeje">opcion1</option>
                             </select>
 
-                            <label class="h2" for="plate_price">Contraseña del usuario</label>
-                            <input type="text" name="precio" id="plate_price" required>
+                            <label class="h2" for="password">Contraseña del usuario</label>
+                            <input type="text" name="password" id="password" required>
                         
 
                     </div>
                     <div class="button_container form_button">  
                         <button class="primary_button" type="submit"> Añadir</button>
-                        <button class="secundary_button"> Regresar</button>
+                        <button class="secundary_button" type="button" onclick="window.history.go(-1)"> Regresar</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-    <script type="module" src="resources/js/inputImage.js"></script>
     <script type="module" src="resources/js/config_forms.js"></script>
-    <script type="module" src="resources/js/select_Categorias.js"></script>
 
 </body>
 </html>

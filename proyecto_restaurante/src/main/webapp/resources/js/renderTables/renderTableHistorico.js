@@ -10,7 +10,7 @@ function crearFilaHistorico(pedido) {
 
     // Crear y agregar celda para Fecha y Hora Completado
     const celdaFechaHora = document.createElement('td');
-    celdaFechaHora.textContent = pedido.fecha_hora_completado;
+    celdaFechaHora.textContent = new Date(pedido.fecha_hora_completado).toLocaleString('es-CO'); // Formato de fecha
     fila.appendChild(celdaFechaHora);
 
     // Crear y agregar celda para Mesa
@@ -18,9 +18,15 @@ function crearFilaHistorico(pedido) {
     celdaMesa.textContent = pedido.mesa;
     fila.appendChild(celdaMesa);
 
-    // Crear y agregar celda para Total Facturado
+    // Crear y agregar celda para Total Facturado con formato de miles y millones
     const celdaTotal = document.createElement('td');
-    celdaTotal.textContent = pedido.total_facturado;
+    if (pedido.total_facturado !== undefined) {
+        // Asegurarse de que el total facturado sea un número antes de formatear
+        const totalFacturado = Number(pedido.total_facturado);
+        celdaTotal.textContent = `$${totalFacturado.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    } else {
+        celdaTotal.textContent = 'N/A'; // Manejar caso de total facturado no disponible
+    }
     fila.appendChild(celdaTotal);
 
     // Crear y agregar celda para el botón de abrir PDF
@@ -29,8 +35,8 @@ function crearFilaHistorico(pedido) {
     botonPdf.classList.add('primary_button');
     botonPdf.textContent = 'Abrir PDF';
     botonPdf.onclick = () => {
-        // Convertir el base64 a un Blob y abrir en una nueva pestaña
-        const blob = new Blob([new Uint8Array(atob(pedido.factura_pdf).split("").map(c => c.charCodeAt(0)))], { type: 'application/pdf' });
+        // Utilizar el blob directamente y abrirlo en una nueva pestaña
+        const blob = pedido.factura_pdf; // Utilizar el blob directamente
         const url = URL.createObjectURL(blob);
         window.open(url);
     };
@@ -86,3 +92,5 @@ export function renderizarTablaHistoricoPedidos(pedidos) {
 
     return tabla;
 }
+
+

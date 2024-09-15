@@ -1,0 +1,17 @@
+.main_content{
+    gap: 0px;
+    padding: 0;
+}
+
+.contenido{
+    align-items: center;
+}
+
+.registro_tabla{
+    width: 90%;
+}
+
+.pendientes_container{
+    width: 80%;
+    height: 80%;
+}

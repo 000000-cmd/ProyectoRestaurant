@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/historico.css">
+    <link rel="stylesheet" href="resources/CSS/newOrder.css">
+</head>
+
+<body>
+    <div class="background1 background_dashboard">
+        <main class="main_content">
+            <section class="content">
+                <header class="header">
+                    <h1>Editar Pedidos</h1>
+                </header>
+                <div class="contenido">
+                    <div class="registro_tabla background2">
+                        <div class="table-container container__registro">
+
+                            <div id="tablaContainer">
+
+                                <table class="tabla">
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+        <aside class="order_list background2">
+            <header class="order-header">
+                Orden ?
+            </header>
+            <div class="order-encabezado">
+                <p class="item">Item</p>
+                <p class="cantidad">Cant</p>
+                <p class="precio">Precio</p>
+            </div>
+            <form class="order_items custom-scrollbar" id="pedido-form">
+
+            </form>
+            <div class="order_list__bottom">
+                <div class="totalPrice">
+                    <p>SubTolal</p>
+                    <p>$21,03</p>
+                </div>
+                <div class="button_container">
+                    <button class="primary_button" id="enviar-pedido" type="submit">
+                        Realizar pedido
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+<script type="module" src="resources/js/newOrder.js"></script>
+<script type="module" src="resources/js/editarPedidos.js"></script>
+
+</html>

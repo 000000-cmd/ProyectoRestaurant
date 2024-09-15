@@ -16,24 +16,22 @@
             </div>
             <div class="form_config">
                 <form class="config_form user_form" method="post" id="addDish"> 
-                    <input type="hidden" id="id-plate" value="12321">
+                    <input type="hidden" id="id-categoria">
                     <div class="user_input form_input">
                    
-                        <label class="h2" for="plate_name">Nombre de la Categoria</label>
-                        <input type="text" name="nombre_plato" id="plate_name" required>
+                        <label class="h2" for="categoria_name">Nombre de la Categoria</label>
+                        <input type="text" name="categoria_name" id="categoria_name" required>
                         
                     </div>
                     <div class="button_container form_button">  
                         <button class="primary_button" type="submit"> Añadir</button>
-                        <button class="secundary_button"> Regresar</button>
+                        <button class="secundary_button" type="button" onclick="window.history.go(-1)"> Regresar</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-    <script type="module" src="resources/js/inputImage.js"></script>
     <script type="module" src="resources/js/config_forms.js"></script>
-    <script type="module" src="resources/js/select_Categorias.js"></script>
 
 </body>
 </html>

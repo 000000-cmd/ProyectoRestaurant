@@ -29,7 +29,12 @@
     background-color: rgba(var(--primario-rgb), 0.1);
 }
 
-
+.nav_disable{
+    transition:none
+}
+.nav_disable:hover{
+    background-color: transparent;
+}
 
 .nav_selected{
     background-color: rgba(var(--primario-rgb), 0.3);

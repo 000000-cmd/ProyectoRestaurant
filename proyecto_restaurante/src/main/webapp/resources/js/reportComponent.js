@@ -25,22 +25,33 @@ export async function mostrarReporte(tipo, fecha) {
 
 function calcularPorcentajes(data) {
     const totalRecaudo = data.total_recaudo;
-    const series = data.recaudo_por_tipo_plato.map(plato => {
+
+    // Convertir recaudo_por_tipo_plato en un arreglo
+    const recaudoPorTipoPlatoArray = Object.entries(data.recaudo_por_tipo_plato).map(([id_plato, total_recaudo]) => {
+        // Buscar el plato en platos_mas_vendidos usando el id_plato para obtener el nombre
+        const plato = data.platos_mas_vendidos.find(plato => plato.id_plato == id_plato);
+        return {
+            id_plato: parseInt(id_plato), // Convertir el ID a entero
+            nombre_plato: plato ? plato.nombre_plato : `Plato ${id_plato}`, // Obtener el nombre del plato
+            total_recaudo: total_recaudo
+        };
+    });
+
+    const series = recaudoPorTipoPlatoArray.map(plato => {
         return parseFloat(((plato.total_recaudo / totalRecaudo) * 100).toFixed(2));
     });
-    const labels = data.recaudo_por_tipo_plato.map(plato => plato.nombre_plato);
+
+    const labels = recaudoPorTipoPlatoArray.map(plato => plato.nombre_plato);
     return { series, labels };
 }
 
 function renderizarChart(contenedorGrafico, series, labels) {
-
-
     console.log(series);
-    
+
     const options = {
         series: series,
         chart: {
-            height: 350,
+            redrawOnParentResize: true,
             type: 'radialBar',
         },
         plotOptions: {

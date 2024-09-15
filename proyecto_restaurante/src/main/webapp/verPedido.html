@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/verPedido.css">
+</head>
+
+<body>
+
+    <div class="background1 background_dashboard">
+        <main class="main_content verPedido " id="main_content">
+            <header>
+                <div>
+                    <h1>Mesero</h1>
+                    <p> feccha</p>
+
+                </div>
+            </header>
+
+            <div class="carousel-container background2">
+                <button class="carousel-button carousel-button--left">&#10094;</button> <!-- Botón Izquierdo -->
+
+                <div class="carousel">
+                    <div class="carousel-track-container">
+                        <ul class="carousel-track">
+                            <li class="carousel-slide current-slide">
+                                <div class="slide-content">
+                                    <div class="slide_title">
+                                        <div class="title_plate">
+                                            <h3>Macarrones con Queso</h3>
+                                            <span>Mesa# 12</span>
+                                        </div>
+                                        <h2 class="realizado hidden">Marcado como realizado</h2>
+                                    </div>
+                                    <div class="details_content">
+                                        <img src="https://via.placeholder.com/300" alt="Plato 1">
+                                        <div class="details">
+                                            <h2>Detalles pedidos</h2>
+                                            <p>x2 - Sin queso</p>
+                                        </div>
+                                    </div>
+                                    <h2>Cantidad: 3</h2>
+                                    <!-- Mueve los botones dentro de la diapositiva -->
+                                    <div class="button_container">
+                                        <button class="primary_button">Plato realizado</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="carousel-slide">
+                                <div class="slide-content">
+                                    <div class="slide_title">
+                                        <div class="title_plate">
+                                            <h3>Macarrones con Queso</h3>
+                                            <span>Mesa# 12</span>
+                                        </div>
+                                        <h2 class="realizado hidden">Marcado como realizado</h2>
+                                    </div>
+                                    <div class="details_content">
+                                        <img src="https://via.placeholder.com/300" alt="Plato 1">
+                                        <div class="details">
+                                            <h2>Detalles pedidos</h2>
+                                            <p>x2 - Sin queso</p>
+                                        </div>
+                                    </div>
+                                    <h2>Cantidad: 3</h2>
+                                    <!-- Mueve los botones dentro de la diapositiva -->
+                                    <div class="button_container">
+                                        <button class="primary_button">Plato realizado</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="button_container">
+                            <button id="despachar_button" class="secundary_button">Despachar</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <button class="carousel-button carousel-button--right">&#10095;</button> <!-- Botón Derecho -->
+            </div>
+
+        </main>
+    </div>
+</body>
+
+
+<script type="module" src="resources/js/verPedido.js"></script>
+
+</html>

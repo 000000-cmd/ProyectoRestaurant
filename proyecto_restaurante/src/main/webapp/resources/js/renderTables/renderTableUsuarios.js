@@ -35,14 +35,14 @@ function llenarTabla(datos) {
         // Botón Editar
         const editarBtn = document.createElement('button');
         editarBtn.classList.add('primary_button');
-        editarBtn.setAttribute("data-edit",`edit${usuario.id_usuario}`)
+        editarBtn.setAttribute("onclick", `window.location.href='form_users.html?mode=editUsuario&id=${usuario.id_usuario}'`);
         editarBtn.textContent = 'Editar';
-        editarBtn.onclick = () => editarUsuario(usuario.nombreUsuario);
         accionesTd.appendChild(editarBtn);
 
         // Botón Eliminar
         const eliminarBtn = document.createElement('button');
         eliminarBtn.classList.add('secundary_button');
+        editarBtn.setAttribute("data-delete",`delete${usuario.id_usuario}`)
         eliminarBtn.textContent = 'Eliminar';
         eliminarBtn.onclick = () => eliminarUsuario(usuario.nombreUsuario);
         accionesTd.appendChild(eliminarBtn);
@@ -55,12 +55,6 @@ function llenarTabla(datos) {
     });
 }
 
-
-// Funciones para manejar los eventos de los botones
-function editarUsuario(nombreUsuario) {
-    alert(`Editar usuario: ${nombreUsuario}`);
-    // Aquí puedes añadir la lógica para editar el usuario
-}
 
 function eliminarUsuario(nombreUsuario) {
     alert(`Eliminar usuario: ${nombreUsuario}`);

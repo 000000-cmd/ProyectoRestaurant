@@ -34,3 +34,77 @@ export async function obtenerCategorias() {
         console.error('Error al procesar las categorías:', error);
     }
 }
+
+export async function crearActualizarCategoria(categoria, action, id) {
+    try {
+        const categoriaNombre = categoria.categoria_name?.trim();
+        console.log('Valor capturado de categoría:', categoriaNombre);
+
+        if (!categoriaNombre) {
+            throw new Error('El nombre de la categoría no puede estar vacío.');
+        }
+
+        const payload = { categoria: categoriaNombre };
+
+        let url = endpointUrl;
+        let method = 'POST'; // Para agregar
+
+        if (action === "edit") {
+            url = `${endpointUrl}/${id}`;
+            method = 'PUT'; // Para editar
+        }
+
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.message || response.statusText;
+            throw new Error(`Error al ${action === "edit" ? "actualizar" : "agregar"} la categoría: ${errorMessage}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status !== 'success') {
+            throw new Error(`Error en la respuesta del servidor: ${data.message}`);
+        }
+
+        return data;
+
+    } catch (error) {
+        console.error(`Error al ${action === "edit" ? "actualizar" : "agregar"} la categoría:`, error);
+        throw error;
+    }
+}
+
+
+export async function obtenerCategoriaPorID(idCategoria) {
+    try {
+        const response = await fetch(`${endpointUrl}/${idCategoria}`);
+        
+        // Verifica si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error(`Error al obtener la categoría con ID ${idCategoria}: ${response.statusText}`);
+        }
+
+        // Convierte la respuesta a JSON
+        const data = await response.json();
+
+        // Verifica si la respuesta contiene un estado de éxito
+        if (data.status !== 'success') {
+            throw new Error(`Error en la respuesta del servidor: ${data.message}`);
+        }
+
+        // Retorna los datos de la categoría
+        return data.data;
+
+    } catch (error) {
+        console.error(`Error al obtener la categoría:`, error);
+        throw error; // Lanza el error para manejarlo en otro lugar si es necesario
+    }
+}

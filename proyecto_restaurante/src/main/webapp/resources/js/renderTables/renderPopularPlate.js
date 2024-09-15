@@ -4,7 +4,7 @@ import { obtenerReporte } from "../../../SolicitudesAPI/gestionarReportes.js";
 import { renderImage } from "../componentes/renderImage.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderSidebar();
+    renderSidebar('Administrador');
     mostrarTablaHistorico();
 });
 
@@ -15,30 +15,39 @@ async function mostrarTablaHistorico() {
         const mesActual = `${fechaActual.getFullYear()}-${String(fechaActual.getMonth() + 1).padStart(2, '0')}`;
         const reporte = await obtenerReporte('mensual', mesActual);
 
+        // Recaudo por tipo de plato es un objeto con los IDs de platos como claves
+        const recaudoPorTipoPlato = reporte.recaudo_por_tipo_plato;
+
         // Calcular los totales base para pedidos diarios y mensuales
         const totalPedidosMes = reporte.platos_mas_vendidos.reduce((total, plato) => total + plato.cantidad_vendida, 0);
-        const totalPedidosDia = totalPedidosMes / 30; // Asumiendo 30 días en el mes
+        const diasDelMes = 30; // Ajuste si el mes tiene más o menos días
+        const totalPedidosDia = totalPedidosMes / diasDelMes; // Promedio de pedidos por día
 
         // Procesar cada plato del reporte para obtener sus detalles
         const data = await Promise.all(reporte.platos_mas_vendidos.map(async plato => {
             // Obtener detalles del plato por su ID
             const detalles = await obtenerPlatoPorId(plato.id_plato);
-            const recaudo = reporte.recaudo_por_tipo_plato.find(rec => rec.id_plato === plato.id_plato);
 
-            // Calcular los porcentajes y otros valores
+            // Acceder al total_recaudo usando el ID del plato
+            const totalRecaudo = recaudoPorTipoPlato[plato.id_plato] || 0;
+
+            // Calcular correctamente los valores diarios
+            const pedidosPromedioDiario = plato.cantidad_vendida / diasDelMes; // Promedio diario basado en ventas totales del mes
+
             return {
                 nombrePlato: plato.nombre_plato,
                 pedidosHoy: { 
-                    porcentaje: calcularPorcentaje(plato.cantidad_vendida / 30, totalPedidosDia), // Promedio diario
-                    total: Math.round(plato.cantidad_vendida / 30) // Ajuste para pedidos promedio diario
+                    porcentaje: calcularPorcentaje(pedidosPromedioDiario, totalPedidosDia), // Ajuste para promedio diario correcto
+                    total: pedidosPromedioDiario.toFixed(1) // Valor de promedio diario
                 },
                 pedidosMes: { 
                     porcentaje: calcularPorcentaje(plato.cantidad_vendida, totalPedidosMes), // Total mensual
                     total: plato.cantidad_vendida // Total de pedidos del mes
                 },
                 precio: detalles ? detalles.precio : 0,
-                gananciaHoy: (recaudo ? recaudo.total_recaudo / 30 : 0).toFixed(2), // Promedio de ganancias diario
-                gananciaMes: recaudo ? recaudo.total_recaudo.toFixed(2) : 0, // Ganancia total mensual
+                // Formatear ganancias diarias y mensuales con separadores de miles y decimales
+                gananciaHoy: (totalRecaudo / diasDelMes).toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), // Promedio de ganancias diario
+                gananciaMes: totalRecaudo.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), // Ganancia total mensual
                 img: detalles ? detalles.img_plato : 'default_image.png' // Ajustar con una imagen predeterminada si no está disponible
             };
         }));
@@ -49,6 +58,7 @@ async function mostrarTablaHistorico() {
         console.error('Error al mostrar el historial:', error);
     }
 }
+
 
 // Función para calcular el porcentaje de pedidos
 function calcularPorcentaje(cantidad, totalBase) {
@@ -129,4 +139,3 @@ function crearBarraProgreso(porcentaje, texto) {
 
     return progressBarContainer;
 }
-

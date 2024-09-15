@@ -1,9 +1,10 @@
 
 import { obtenerPlatos } from "../../SolicitudesAPI/gestionarPlatos.js";
 import { renderImage } from "./componentes/renderImage.js";
+import { obtenerReporte } from "../../SolicitudesAPI/gestionarReportes.js";
 
 // Función para mostrar los platos más vendidos
-export async function mostrarPlatosMasVendidos(tipo, fecha, obtenerReporte) {
+export async function mostrarPlatosMasVendidos(tipo, fecha) {
     try {
         // Obtener el reporte de los platos más vendidos
         const reporte = await obtenerReporte(tipo, fecha);
@@ -20,7 +21,7 @@ export async function mostrarPlatosMasVendidos(tipo, fecha, obtenerReporte) {
         const platosMasVendidos = reporte.platos_mas_vendidos;
 
         // Seleccionar el contenedor de los platos más ordenados
-        const contenedor = document.querySelector('.most_ordened__conteiner .plato_list');
+        const contenedor = document.querySelector('.plato_list');
         if (!contenedor) {
             console.error('No se encontró el contenedor con la clase .plato_list');
             return;
@@ -30,41 +31,50 @@ export async function mostrarPlatosMasVendidos(tipo, fecha, obtenerReporte) {
         contenedor.innerHTML = '';
 
         // Renderizar los platos más vendidos
-        platosMasVendidos.forEach(platoVendido => {
-            const plato = platos.find(p => p.nombre_plato === platoVendido.nombre_plato);
+            if(Array.isArray(platosMasVendidos) ){
+                platosMasVendidos.forEach(platoVendido => {
+                    const plato = platos.find(p => p.nombre_plato === platoVendido.nombre_plato);
+        
+                    // Crear el elemento HTML para cada plato
+                    const platoItem = document.createElement('div');
+                    platoItem.classList.add('plato_item');
+        
+                    // Crear el elemento de imagen
+                    const img = document.createElement('img');
+                    img.src =  renderImage(plato.img_plato)
+                    img.alt = plato.nombre_plato;
+        
+                    // Crear el contenedor de los detalles del plato
+                    const plateDetails = document.createElement('div');
+                    plateDetails.classList.add('plate_details');
+        
+                    // Agregar el nombre del plato
+                    const nombrePlato = document.createElement('p');
+                    nombrePlato.textContent = plato.nombre_plato;
+        
+                    // Agregar la descripción del plato
+                    const descripcionPlato = document.createElement('p');
+                    descripcionPlato.textContent = `Vendidos: ${platoVendido.cantidad_vendida}`;
+        
+                    // Añadir los elementos al contenedor de detalles
+                    plateDetails.appendChild(nombrePlato);
+                    plateDetails.appendChild(descripcionPlato);
+        
+                    // Añadir la imagen y los detalles al platoItem
+                    platoItem.appendChild(img);
+                    platoItem.appendChild(plateDetails);
+        
+                    // Añadir el platoItem al contenedor principal
+                    contenedor.appendChild(platoItem);
+                });
+            }
+            else{
+                const texto = document.createElement('p');
+                texto.textContent = " ¡Ops! No hay platos. ¡Deberias vender mas platos! :)";
+                texto.classList.add("normal","textDefault")
+                contenedor.appendChild(texto);
+            }
 
-            // Crear el elemento HTML para cada plato
-            const platoItem = document.createElement('div');
-            platoItem.classList.add('plato_item');
-
-            // Crear el elemento de imagen
-            const img = document.createElement('img');
-            img.src =  renderImage(plato.img_plato)
-            img.alt = plato.nombre_plato;
-
-            // Crear el contenedor de los detalles del plato
-            const plateDetails = document.createElement('div');
-            plateDetails.classList.add('plate_details');
-
-            // Agregar el nombre del plato
-            const nombrePlato = document.createElement('p');
-            nombrePlato.textContent = plato.nombre_plato;
-
-            // Agregar la descripción del plato
-            const descripcionPlato = document.createElement('p');
-            descripcionPlato.textContent = `Vendidos: ${platoVendido.cantidad_vendida}`;
-
-            // Añadir los elementos al contenedor de detalles
-            plateDetails.appendChild(nombrePlato);
-            plateDetails.appendChild(descripcionPlato);
-
-            // Añadir la imagen y los detalles al platoItem
-            platoItem.appendChild(img);
-            platoItem.appendChild(plateDetails);
-
-            // Añadir el platoItem al contenedor principal
-            contenedor.appendChild(platoItem);
-        });
 
     } catch (error) {
         console.error('Error al mostrar los platos más vendidos:', error);

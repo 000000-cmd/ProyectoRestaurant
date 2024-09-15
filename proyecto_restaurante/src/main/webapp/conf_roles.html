@@ -43,7 +43,7 @@
             <section class="content content__config">
                 <div class="conf_usuarios__container background2">
                     <div class="new_user__container">
-                        <a href="#" class="new_button new_user__button">
+                        <a href="form_roles.html?mode=addRol" class="new_button new_user__button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 18 18" fill="currentColor">
                                 <path d="M8.72266 1.66595V9.16595M8.72266 16.666V9.16595M8.72266 9.16595H16.2227M8.72266 9.16595H1.22266" stroke="#FACE8D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="currentColor"/>
                             </svg>
@@ -58,40 +58,10 @@
                                 <tr>
                                     <th>Identificador Rol</th>
                                     <th>Nombre del rol</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>01</td>
-                                    <td>Chef</td>
-
-                                    <td><button class="primary_button"> Editar</button>
-                                        <button class="secundary_button"> Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>02</td>
-                                    <td>Cajero</td>
-
-                                    <td><button class="primary_button"> Editar</button>
-                                        <button class="secundary_button"> Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>03</td>
-                                    <td>Administrador</td>
-
-                                    <td><button class="primary_button"> Editar</button>
-                                        <button class="secundary_button"> Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>04</td>
-                                    <td>Mesero</td>
-                                    <td><button class="primary_button"> Editar</button>
-                                        <button class="secundary_button"> Eliminar</button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -104,6 +74,7 @@
     </div>
 
     <script type="module" src="resources/js/config.js"></script>
+    <script type="module" src="resources/js/renderTables/renderTableRoles.js"></script>
 </body>
 </html>
 

@@ -1,14 +1,29 @@
-import { agregarPlato } from "../../SolicitudesAPI/gestionarPlatos.js";
+import { crearActualizarCategoria, obtenerCategoriaPorID } from "../../SolicitudesAPI/consultasSelect/gestionarCategorias.js";
+import { crearActualizarPlato } from "../../SolicitudesAPI/gestionarPlatos.js";
+import { crearActualizarRol, obtenerRolPorId } from "../../SolicitudesAPI/gestionarRol.js";
+import { crearActualizarUsuario, obtenerUsuarioPorID } from "../../SolicitudesAPI/gestionarUsuarios.js";
 import { URLs } from "../../SolicitudesAPI/URL.js";
+import { previewImage } from "./componentes/inputImage.js";
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Selecciona el formulario con la clase 'config_form'
     const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode'); // Obtén el valor del parámetro 'mode'
-    const IdForm = urlParams.get('id'); // Obtén el ID del plato desde la URL
+    const mode = urlParams.get('mode');
+    const IdForm = urlParams.get('id');
     const formulario = document.querySelector(".config_form");
 
-    // Cambia el ID del formulario según el modo especificado en la URL
+    if (formulario) {
+        formulario.addEventListener('submit', manejarFormularioSubmit, { once: true });
+    }
+
+    const imageInput = document.getElementById('imageUpload');
+
+    if (imageInput) {
+        imageInput.addEventListener('change', (e) => {
+            previewImage(e);
+        });
+    }
+
     if (formulario) {
         switch (mode) {
             case 'addDish':
@@ -16,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'editDish':
                 formulario.id = 'editDish';
-                if(IdForm){
+                if (IdForm) {
                     cargarDatosDelPlato(IdForm, formulario);
-                }else{
+                } else {
                     console.log("Datos del plato no encontrados");
                 }
                 break;
@@ -27,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'editRol':
                 formulario.id = 'editRol';
-                if(IdForm){
-                    cargarDatosDelRol(IdForm, formulario);
-                }else{
+                if (IdForm) {
+                    cargarDatosDeRoles(IdForm, formulario);
+                } else {
                     console.log("Datos del Rol no encontrados");
                 }
                 break;
@@ -38,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'editCategoria':
                 formulario.id = 'editCategoria';
-                if(IdForm){
+                if (IdForm) {
                     cargarDatosDelCategoria(IdForm, formulario);
-                }else{
+                } else {
                     console.log("Datos de la Categoria no encontrados");
                 }
                 break;
@@ -49,52 +64,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'editUsuario':
                 formulario.id = 'editUsuario';
-                if(IdForm){
+                if (IdForm) {
                     cargarDatosDelUsuario(IdForm, formulario);
-                }else{
+                } else {
                     console.log("Datos del Usuario no encontrados");
                 }
                 break;
             default:
                 console.log('Modo no reconocido, usando ID por defecto "addDish"');
-                formulario.id = 'addDish'; // Por defecto o un valor seguro
+                formulario.id = 'addDish';
         }
-
-        // Agrega el event listener para el submit del formulario
-        formulario.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            manejarFormularioSubmit(e);
-        });
     }
 });
 
-// Manejador general para el evento submit del formulario
 function manejarFormularioSubmit(e) {
-    // Previene la acción por defecto del formulario
-    const formulario = e.target; // Obtiene el formulario que lanzó el evento
-    const formId = formulario.id; // Obtiene el ID del formulario
+    e.preventDefault();
+    const formulario = e.target;
+    const submitButton = formulario.querySelector('button[type="submit"]');
+
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
+
+    const formId = formulario.id;
 
     switch (formId) {
         case "addDish":
-            AddDish(formulario); 
+            AddDish(formulario);
             break;
         case "editDish":
             EditDish(formulario);
             break;
         case "addRol":
-            AddRol(formulario); 
+            AddRol(formulario);
             break;
         case "editRol":
             EditRol(formulario);
             break;
         case "addCategoria":
-            AddCategoria(formulario); 
+            AddCategoria(formulario);
             break;
         case "editCategoria":
             EditCategoria(formulario);
             break;
         case "addUsuario":
-            AddUsuario(formulario); 
+            AddUsuario(formulario);
             break;
         case "editUsuario":
             EditUsuario(formulario);
@@ -102,70 +116,228 @@ function manejarFormularioSubmit(e) {
         default:
             console.log('Formulario no reconocido');
     }
+
+    if (submitButton) {
+        submitButton.disabled = false;
+    }
 }
 
+async function cargarDatosDelPlato(IdPlato, formulario) {
+    try {
+        const response = await fetch(`${URLs}/platos/${IdPlato}`);
+        const datos = await response.json();
+        const data = datos.data;
 
-async function cargarDatosDelPlato(IdPlato,formulario){
-    
-    const response = await fetch(`${URLs}/`)
-    const data = await response.json();
-    const imagenInput= formulario.querySelector("#imageUpload")
-    const categoriaSelect= formulario.querySelector("#select_plate")
-    const nombrePlato= formulario.querySelector("#plate_name")
-    const precioPlato= formulario.querySelector("#plate_price")
-    const disponiblePlato= formulario.querySelector("#plate_disponibility")
-    const descripcionPlato= formulario.querySelector("#plate_details")
+        const id = formulario.querySelector("#id-plate");
+        const imagenInput = formulario.querySelector("#imageUpload");
+        const categoriaSelect = formulario.querySelector("#select_plate");
+        const nombrePlato = formulario.querySelector("#plate_name");
+        const precioPlato = formulario.querySelector("#plate_price");
+        const disponiblePlato = formulario.querySelector("#plate_disponibility");
+        const descripcionPlato = formulario.querySelector("#plate_details");
 
-    imagenInput.value = datosPlato.imagen; 
-    categoriaSelect.value = datosPlato.categoria;
-    nombrePlato.value = datosPlato.nombre;
-    precioPlato.value = datosPlato.precio;
-    disponiblePlato.value = datosPlato.disponibilidad;
-    descripcionPlato.value = datosPlato.descripcion;
+        id.value = data.id_plato;
+        categoriaSelect.value = data.categoria;
+        nombrePlato.value = data.nombre_plato;
+        precioPlato.value = data.precio;
+        disponiblePlato.value = data.disponibilidad;
+        descripcionPlato.value = data.descripcion;
+
+        if (data.img_plato) {
+            const label = imagenInput.closest('.custom-file-upload');
+            const base64Image = `data:image/jpeg;base64,${data.img_plato}`;
+            label.style.backgroundImage = `url(${base64Image})`;
+            label.style.color = 'transparent';
+            label.style.border = 'none';
+        }
+    } catch (error) {
+        console.error('Error al cargar datos del plato:', error);
+    }
 }
 
+async function cargarDatosDelCategoria(idCategoria, formulario) {
+    try {
+        const datos = await obtenerCategoriaPorID(idCategoria);
 
+        if (!datos || typeof datos !== 'object') {
+            throw new Error('Los datos de la categoría son inválidos o no fueron encontrados.');
+        }
 
-// Funciones específicas para cada tipo de formulario
+        const id = formulario.querySelector("#id-categoria");
+        const nombre = formulario.querySelector("#categoria_name");
+
+        id.value = datos.id_categoria || '';
+        nombre.value = datos.categoria || '';
+
+    } catch (error) {
+        console.error('Error al cargar datos de la categoría:', error);
+    }
+}
+
+async function cargarDatosDelUsuario(idUsuario, formulario) {
+    try {
+        const datos = await obtenerUsuarioPorID(idUsuario);
+        const id = formulario.querySelector("#id-usuario");
+        const nombre = formulario.querySelector("#nombre_usuario");
+        const rol = formulario.querySelector("#rol_usuario");
+        const password = formulario.querySelector("#password");
+
+        id.value = datos.id_usuario;
+        nombre.value = datos.nombre_usuario;
+        rol.value = datos.rol;
+        password.value = datos.password;
+    } catch (error) {
+        console.error('Error al cargar datos del usuario:', error);
+    }
+}
+
+async function cargarDatosDeRoles(idRol, formulario) {
+    try {
+        const datos = await obtenerRolPorId(idRol);
+
+        // Verifica que los datos existan y que sean un objeto válido
+        if (!datos || typeof datos !== 'object') {
+            throw new Error('Los datos del rol son inválidos o no fueron encontrados.');
+        }
+
+        // Verifica que los elementos del formulario existan antes de intentar asignar valores
+        const id = formulario.querySelector("#id-rol");
+        const nombre = formulario.querySelector("#nombre_rol");
+
+        if (id) {
+            id.value = datos.id_rol || ''; // Asigna el valor o un string vacío por defecto
+        } else {
+            console.warn('Elemento con ID "id-rol" no encontrado en el formulario.');
+        }
+
+        if (nombre) {
+            nombre.value = datos.rol || ''; // Asigna el valor o un string vacío por defecto
+        } else {
+            console.warn('Elemento con ID "nombre_rol" no encontrado en el formulario.');
+        }
+
+    } catch (error) {
+        console.error('Error al cargar datos del rol:', error);
+    }
+}
+
 function AddDish(formulario) {
     const formData = new FormData(formulario);
-    agregarPlato(formulario)
+    crearActualizarPlato(formulario, "add");
     console.log('Añadiendo Plato:', Object.fromEntries(formData));
 }
 
 function EditDish(formulario) {
     const formData = new FormData(formulario);
+    const id = formulario.querySelector("#id-plate").value;
+    crearActualizarPlato(formulario, "edit", id);
     console.log('Editando Plato:', Object.fromEntries(formData));
 }
 
-// Agrega las funciones correspondientes para Rol, Categoria, Usuario, etc.
 function AddRol(formulario) {
     const formData = new FormData(formulario);
-    console.log('Añadiendo Rol:', Object.fromEntries(formData));
+    const nombreRol = formData.get('nombre_rol')?.trim();
+
+    if (!nombreRol) {
+        console.error('El nombre del rol no puede estar vacío.');
+        alert('El nombre del rol no puede estar vacío.');
+        return;
+    }
+
+    crearActualizarRol({ nombre_rol: nombreRol }, "add")
+        .then(response => console.log('Rol añadido:', response))
+        .catch(error => console.error('Error al añadir el rol:', error));
 }
+
 
 function EditRol(formulario) {
     const formData = new FormData(formulario);
-    console.log('Editando Rol:', Object.fromEntries(formData));
+    const id = formulario.querySelector("#id-rol").value;
+    const nombreRol = formData.get('nombre_rol')?.trim();
+
+    if (!nombreRol) {
+        console.error('El nombre del rol no puede estar vacío.');
+        alert('El nombre del rol no puede estar vacío.');
+        return;
+    }
+
+    crearActualizarRol({ nombre_rol: nombreRol }, "edit", id)
+        .then(response => console.log('Rol editado:', response))
+        .catch(error => console.error('Error al editar el rol:', error));
 }
+
 
 function AddCategoria(formulario) {
     const formData = new FormData(formulario);
-    console.log('Añadiendo Categoría:', Object.fromEntries(formData));
+    const categoriaName = formData.get('categoria_name')?.trim();
+
+    if (!categoriaName) {
+        console.error('El nombre de la categoría no puede estar vacío.');
+        alert('El nombre de la categoría no puede estar vacío.');
+        return;
+    }
+
+    crearActualizarCategoria({ categoria_name: categoriaName }, "add")
+        .then(response => console.log('Categoría añadida:', response))
+        .catch(error => console.error('Error al añadir la categoría:', error));
 }
 
 function EditCategoria(formulario) {
     const formData = new FormData(formulario);
-    console.log('Editando Categoría:', Object.fromEntries(formData));
+    const id = formulario.querySelector("#id-categoria").value;
+    const categoriaName = formData.get('categoria_name')?.trim();
+
+    if (!categoriaName) {
+        console.error('El nombre de la categoría no puede estar vacío.');
+        alert('El nombre de la categoría no puede estar vacío.');
+        return;
+    }
+
+    crearActualizarCategoria({ categoria_name: categoriaName }, "edit", id)
+        .then(response => console.log('Categoría editada:', response))
+        .catch(error => console.error('Error al editar la categoría:', error));
 }
 
 function AddUsuario(formulario) {
     const formData = new FormData(formulario);
-    console.log('Añadiendo Usuario:', Object.fromEntries(formData));
+    const nombreUsuario = formData.get('nombre_usuario')?.trim();
+    const rolUsuario = formData.get('rol_usuario')?.trim();
+    const password = formData.get('password')?.trim();
+
+    if (!nombreUsuario || !rolUsuario || !password) {
+        console.error('Todos los campos de usuario son obligatorios.');
+        alert('Todos los campos de usuario son obligatorios.');
+        return;
+    }
+
+    crearActualizarUsuario({
+        nombre_usuario: nombreUsuario,
+        rol: rolUsuario,
+        password: password
+    }, "add")
+        .then(response => console.log('Usuario añadido:', response))
+        .catch(error => console.error('Error al añadir el usuario:', error));
 }
+
 
 function EditUsuario(formulario) {
     const formData = new FormData(formulario);
-    console.log('Editando Usuario:', Object.fromEntries(formData));
-}
+    const id = formulario.querySelector("#id-usuario").value;
+    const nombreUsuario = formData.get('nombre_usuario')?.trim();
+    const rolUsuario = formData.get('rol_usuario')?.trim();
+    const password = formData.get('password')?.trim();
 
+    if (!nombreUsuario || !rolUsuario || !password) {
+        console.error('Todos los campos de usuario son obligatorios.');
+        alert('Todos los campos de usuario son obligatorios.');
+        return;
+    }
+
+    crearActualizarUsuario({
+        nombre_usuario: nombreUsuario,
+        rol: rolUsuario,
+        password: password
+    }, "edit", id)
+        .then(response => console.log('Usuario editado:', response))
+        .catch(error => console.error('Error al editar el usuario:', error));
+}

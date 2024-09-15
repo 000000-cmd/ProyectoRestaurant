@@ -103,7 +103,7 @@ body {
 }
 .content__config{ 
 
-    height: 100%;
+    height: 96vh;
     padding-top: 6%;
 }
 
@@ -118,10 +118,11 @@ body {
 .logo_login>img{
     width: 100px;
 }
+
+/* Inputs*/
 .form_input{
     display: flex;
     flex-direction: column;
-    gap: 10px;
 
 }
 .form_input>input,select,textarea{
@@ -152,7 +153,25 @@ input:focus {
     box-shadow: 0 0 10px rgba(250, 206, 141, 0.5); /* Sombra suave en foco */
     background-color: #2a2837; /* Ajuste de fondo en foco */
 }
+.selec_time{
+    width: 35%;
+    background-color: var(--background2);
+    box-shadow: none;
+}
 
+
+
+.textDefault{
+    color: var(--font_difuso);
+    padding: 15px 0;
+}
+   
+
+
+
+
+
+/*Scroll*/
 
 
 .custom-scrollbar::-webkit-scrollbar {

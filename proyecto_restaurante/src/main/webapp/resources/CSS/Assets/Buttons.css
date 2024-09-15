@@ -35,6 +35,15 @@
     border: 1px var(--primario) solid;
     font-size: var(--fuente-body-small);
     font-family: var(--fuente-secundaria);
+    transition: background-color 0.6s;
+}
+
+.header_button{
+    width: 99%;
+}
+
+.secundary_button:hover{
+    background: rgba(var(--primario-rgb), 0.1);
 }
 
 button{
@@ -70,6 +79,7 @@ button{
     color: #8FCFFF;
 }
 
+
 .low_opacity_button {
     background-color: rgba(var(--primario-rgb), 0.4);
     border: none;
@@ -92,3 +102,11 @@ button{
     color: white;
 }
 
+.link_button{
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

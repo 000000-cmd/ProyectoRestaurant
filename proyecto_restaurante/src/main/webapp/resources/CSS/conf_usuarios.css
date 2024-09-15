@@ -5,11 +5,12 @@
     
 }
 
-.new_user__button{
+.new_categoria__button{
+    width: 30%;
 }
 
 .conf_usuarios__container{
-    height: 90%;
+    height: 80vh;
     padding: 0 20px;
 }
 

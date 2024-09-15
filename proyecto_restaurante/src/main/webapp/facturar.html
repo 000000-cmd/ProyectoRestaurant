@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/facturar.css">
+</head>
+
+<body>
+    <div class="background1 background_dashboard">
+        <main class="main_content verPedido" id="main_content">
+            <header>
+                <div>
+                    <h1>Cajero</h1>
+                    <p>Fecha</p>
+                </div>
+            </header>
+
+            <div class="facturar-container background2">
+                <h2>Pedido A Facturar</h2>
+                <table class="factura-tabla">
+                    <thead>
+                        <tr>
+                            <th>Platos a facturar</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Detalles</th>
+                            <th>Precio Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas se generan con JavaScript -->
+                    </tbody>
+                </table>
+
+                <div class="factura-footer">
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+<script type="module" src="resources/js/facturar.js"></script>
+
+</html>

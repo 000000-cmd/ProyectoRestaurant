@@ -14,7 +14,8 @@ export async function obtenerPlatos() {
 
         // Convierte la respuesta a JSON
         const data = await response.json();
-
+        console.log(data);
+        
 
         // Verifica si la respuesta contiene un estado de éxito
         if (data.status !== 'success') {
@@ -27,6 +28,7 @@ export async function obtenerPlatos() {
 
             // Devolver un objeto con los detalles del plato y la imagen en base64
             return {
+                id_plato: plato.id_plato,
                 nombre_plato: plato.nombre_plato,
                 descripcion: plato.descripcion,
                 precio: plato.precio,
@@ -47,44 +49,45 @@ export async function obtenerPlatos() {
     }
 }
 
-export async function agregarPlato(plato) {
+
+export async function crearActualizarPlato(plato, action, id) {
     try {
         // Crear un objeto FormData para manejar los datos, incluyendo la imagen
         const formData = new FormData();
+
         formData.append('nombre_plato', plato.nombre_plato.value);
         formData.append('descripcion', plato.descripcion.value);
         formData.append('precio', parseFloat(plato.precio.value).toFixed(2));
         formData.append('disponibilidad', plato.disponibilidad.value);
         formData.append('id_categoria', plato.id_categoria.value);
-        formData.append('img_plato', plato.img_plato.files[0]);
-        console.log(plato.img_plato.files[0]);
-        
-        // Solo agregar la imagen si está presente
-        if (plato.img_plato) {
-            formData.append('img_plato', plato.img_plato);
-        }
 
         // Solo agregar la imagen si está presente y es un archivo válido
-        if (plato.img_plato instanceof File) { 
-            formData.append('img_plato', plato.img_plato);
-        } else if (plato.img_plato) {
-            console.warn('La imagen proporcionada no es un archivo válido.');
+        if (plato.img_plato.files[0] instanceof File) { 
+            formData.append('img_plato', plato.img_plato.files[0]);
         }
 
         // Verificar lo que se agregó a FormData
         for (let pair of formData.entries()) {
-            console.log(pair[0]+ ': ' + pair[1]); 
+            console.log(pair[0] + ': ' + pair[1]);
         }
 
-        // Realizar la solicitud POST para agregar el plato
-        const response = await fetch(endpointUrl, {
-            method: 'POST',
+        // Configurar la URL y método según la acción
+        let url = endpointUrl;
+        let method = 'POST';
+        if (action === "edit") {
+            url += `/${id}`;
+            method = 'PUT'; // Cambiar a PUT para actualizar
+        }
+
+        // Realizar la solicitud POST o PUT para agregar o actualizar el plato
+        const response = await fetch(url, {
+            method: method,
             body: formData,
         });
 
         // Verificar si la respuesta fue exitosa
         if (!response.ok) {
-            throw new Error('Error al agregar el plato: ' + response.statusText);
+            throw new Error(`Error al ${action === 'edit' ? 'actualizar' : 'agregar'} el plato: ` + response.statusText);
         }
 
         // Convertir la respuesta a JSON
@@ -92,19 +95,23 @@ export async function agregarPlato(plato) {
 
         // Verificar si la respuesta contiene un estado de éxito
         if (data.status !== 'success') {
-            throw new Error('Error en la respuesta del servidor: ' + data.message);
+            throw new Error(`Error en la respuesta del servidor: ` + data.message);
         }
 
         // Muestra el mensaje de éxito
-        console.log('Plato agregado exitosamente:', data);
+        console.log(`Plato ${action === 'edit' ? 'actualizado' : 'agregado'} exitosamente:`, data);
 
         // Retornar los datos recibidos si es necesario
         return data;
+
     } catch (error) {
         // Maneja los errores
-        console.error('Error al agregar el plato:', error);
+        console.error(`Error al ${action === 'edit' ? 'actualizar' : 'agregar'} el plato:`, error);
     }
 }
+
+
+
 
 export async function obtenerPlatoPorId(id) {
     try {

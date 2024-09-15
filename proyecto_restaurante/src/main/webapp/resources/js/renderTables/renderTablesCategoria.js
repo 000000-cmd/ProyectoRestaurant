@@ -1,13 +1,15 @@
+import { obtenerCategorias } from "../../../SolicitudesAPI/consultasSelect/gestionarCategorias.js";
 import { URLs } from "../../../SolicitudesAPI/URL.js";
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const response = await fetch(`${URLs}/categorias`)
-    const data = await response.json();
-    console.log(data.data);
     
+    const data=  await obtenerCategorias();
+    console.log(data);
+    llenarTabla(data);
+ 
     
-    llenarTabla(data.data);
+
 });
 
 function llenarTabla(datos) {
@@ -18,11 +20,11 @@ function llenarTabla(datos) {
 
         // Crea y añade las celdas para cada dato del categoria
         const identificadorTd = document.createElement('td');
-        identificadorTd.textContent = categoria.nombre_categoria;
+        identificadorTd.textContent = categoria.id_categoria;
         row.appendChild(identificadorTd);
 
         const rolTd = document.createElement('td');
-        rolTd.textContent = categoria.rol;
+        rolTd.textContent = categoria.categoria;
         row.appendChild(rolTd);
         
         // Crea la celda para los botones de acción
@@ -34,11 +36,13 @@ function llenarTabla(datos) {
         editarBtn.setAttribute("data-edit",`edit${categoria.id_categoria}`)
         editarBtn.textContent = 'Editar';
         editarBtn.onclick = () => editarcategoria(categoria.nombrecategoria);
+        editarBtn.setAttribute("onclick", `window.location.href='form_categorias.html?mode=editCategoria&id=${categoria.id_categoria}'`);
         accionesTd.appendChild(editarBtn);
 
         // Botón Eliminar
         const eliminarBtn = document.createElement('button');
         eliminarBtn.classList.add('secundary_button');
+        editarBtn.setAttribute("data-delete",`delete${categoria.id_categoria}`)
         eliminarBtn.textContent = 'Eliminar';
         eliminarBtn.onclick = () => eliminarcategoria(categoria.nombrecategoria);
         accionesTd.appendChild(eliminarBtn);
@@ -49,13 +53,6 @@ function llenarTabla(datos) {
         // Añade la fila completa al tbody
         tbody.appendChild(row);
     });
-}
-
-
-// Funciones para manejar los eventos de los botones
-function editarcategoria(nombrecategoria) {
-    alert(`Editar categoria: ${nombrecategoria}`);
-    // Aquí puedes añadir la lógica para editar el categoria
 }
 
 function eliminarcategoria(nombrecategoria) {

@@ -14,18 +14,19 @@
                 <img src="resources/images/Logo.png" alt="Logo de la empresa">
             </div>
             <div class="form_login">
-                <form class="form_input" method="post" action="tu_accion_login"> 
+                <form class="form_input" method="post" id="LoginForm"> 
                     <label class="h2" for="username">Nombre de usuario</label>
                     <input type="text" name="username" id="username" required> 
                     <label class="h2" for="password">Contraseña</label>
                     <input type="password" name="password" id="password" required> 
                     <div class="button_container form_button">
                         <a class="h2" href="recuperar_contraseña">¿Olvidó su contraseña?</a> 
-                        <button class="primary_button" type="submit">Ingresar</button> 
+                        <button class="primary_button" type="submit" id="submitButton">Ingresar</button> 
                     </div>
                 </form>
             </div>
         </div>
     </section>
+    <script type="module" src="../resources/js/login.js"></script>
 </body>
 </html>

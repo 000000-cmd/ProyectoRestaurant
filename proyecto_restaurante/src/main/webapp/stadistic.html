@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/dashboard.css">
+    <link rel="stylesheet" href="resources/CSS/stadistic.css">
+    <!-- Incluye ApexCharts desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="background1 background_dashboard">
+        
+        <main class="main_content" id="main_content">
+            <section class="content content_estadistica">
+                <header>
+                    <h1>Estadistica por Plato</h1>
+                </header>
+                <div class="contenido background2">
+                    
+                    <div class="graph">
+                        <div class="graph_container" id="chart"></div> 
+                    </div>
+
+                    <div class="most_ordened__conteiner plateList ">
+                        <header class="most_ordened__title">  
+                            <h2>Platos mas vendidos</h2>
+                            <select class="selec_time" name="selec_time" id="selec_time">
+                                <option id="dia" value="dia">Dia</option>
+                                <option id="mes" value="semana">Semana</option>
+                                <option id="año" value="mes">Mes</option>
+                            </select>
+                        </header>
+                        <hr class="linea">
+                        <div class="plato_list custom-scrollbar">
+                            <!-- Aquí es donde los platos más vendidos serán renderizados -->
+                        </div>
+                        <div class="button_container most_ordened__button">
+                            <a  href="mostPopularPlate.html" class="secundary_button link_button">Ver todos</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+<script type="module" src="resources/js/stadistic.js"></script>
+</html>

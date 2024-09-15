@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="resources/CSS/Styles.css">
+    <link rel="stylesheet" href="resources/CSS/gestionador.css">
+    <link rel="stylesheet" href="resources/CSS/newOrder.css">
+</head>
+
+<body>
+    <div class="background1 background_dashboard">
+        <main class="main_content newOrder_content" id="main_content">
+            <header>
+                <div>
+                <h1>Mesero</h1>
+                <p> feccha</p>
+
+            </div>
+            </header>
+
+            <div class="menuContainer">
+                <div class="tabs">
+                    <!-- Tabs se agregarán dinámicamente aquí -->
+                    <div class="tab-indicator"></div>
+                </div>
+                <div class="tab-contents">
+                    <!-- Contenedores de contenido se agregarán dinámicamente aquí -->
+                </div>
+            </div>
+        </main>
+        <aside class="order_list background2">
+            <header class="order-header">
+                Orden #3982389
+            </header>
+            <div class="order-encabezado">
+                <p class="item">Item</p>
+                <p class="cantidad">Cant</p>
+                <p class="precio">Precio</p>
+            </div>
+            <form class="order_items custom-scrollbar" id="pedido-form">
+
+            </form>
+            <div class="order_list__bottom">
+                <div class="totalPrice">
+                    <p>SubTolal</p>
+                    <p>$21,03</p>
+                </div>
+                <div class="button_container">
+                    <button class="primary_button" id="enviar-pedido" type="submit">
+                        Realizar pedido
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+<script type="module" src="resources/js/newOrder.js"></script>
+
+</html>

@@ -1,0 +1,274 @@
+.newOrder_content{
+    width: 70vw;
+}
+
+.tab-content{
+    padding: 40px 20px;
+}
+
+.card_container {
+    width: 225px;
+    height: 300px;
+    border: none;
+    display: grid;
+    text-align: center;
+    border-radius: var(--border_radius);
+    overflow: visible; /* Cambiado a visible para permitir que la imagen sobresalga */
+    position: relative; /* Para posicionar la imagen absolutamente */
+    background-color: #2a2a3b; /* Fondo de la tarjeta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+.img_card__container {
+    position: absolute; /* Posiciona la imagen fuera del flujo normal */
+    top: -40px; /* Ajusta este valor según cuánto quieres que sobresalga la imagen */
+    left: 50%;
+    transform: translateX(-50%); /* Centra horizontalmente la imagen */
+    width: 130px; /* Ajusta el tamaño de la imagen */
+    height: 120px; /* Ajusta el tamaño de la imagen */
+    border-radius: 50%; /* Hace la imagen circular */
+    overflow: hidden; /* Asegura que la imagen no sobresalga del contenedor */
+    /*background: white;  Fondo blanco para destacar la imagen */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  Sombra ligera */
+}
+
+.img_card__container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta y ajusta la imagen dentro del círculo */
+}
+
+.details_card__container {
+    margin-top: 60px; /* Añade un margen superior para dar espacio a la imagen */
+    padding-top: 50px; /* Espacio para que la imagen no solape el texto */
+    color: white; /* Texto en color blanco */
+}
+
+.details_card__container h2 {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.details_card__container .small {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 8px 0;
+    color: #9b9b9b; /* Color gris claro */
+}
+
+
+.order_list{
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.order-header {
+    font-size: 20px; /* Tamaño de fuente del encabezado */
+    font-weight: bold;
+    margin-bottom: 16px; /* Espacio debajo del encabezado */
+    color: #f0f0f0; /* Color claro para el encabezado */
+    padding: 15px 10px; 
+}
+
+.order-encabezado {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr; /* Más espacio para Item, menos para Cant y Precio */
+    text-align: left; /* Alineación del texto a la izquierda */
+    padding: 10px; /* Espacio vertical */
+    border-bottom: 1px solid #333; /* Línea divisoria debajo */
+}
+
+
+
+
+.order_items {
+    flex-grow: 1; /* Permite que este contenedor crezca y tome el espacio disponible */
+    overflow-y: auto; /* Agrega un scroll si el contenido es demasiado grande */
+    margin-bottom: 16px; /* Espacio entre los items y la parte inferior */
+}
+
+
+.order-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    grid-template-rows: auto auto;
+    gap: 8px;
+    align-items: center;
+    background-color: #2a2a3b;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.item-image {
+    grid-row: span 2; /* Ocupa dos filas */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-name {
+    grid-column: 2 / span 1;
+}
+.item-details {
+    grid-column: 2 / span 1;
+}
+.plates-afected{
+    grid-column: 3 / span 1;
+}
+
+.add-details-button{
+    grid-column: 4;
+}
+.show-details-list{
+    grid-column: 5;
+}
+
+.form_input>input{
+    margin: 0;
+}
+
+.item-details h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.item-details .item-price {
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    color: #9b9b9b;
+}
+
+.item-quantity {
+    grid-column: 3 / span 1;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+}
+.input_mini>input{
+    width: 34px;
+    padding: 12px 4px;
+    text-align: center;
+}
+.mini{
+    width: 34px;
+    padding: 12px 4px;
+    text-align: center;
+}
+.item-total-price {
+    grid-column: 4 / span 1;
+    text-align: right;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.item-delete {
+    grid-column: 5 / span 1;
+    text-align: center;
+}
+
+.orden-button {
+    background-color: transparent;
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+.delete-button{
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.add-button{
+    border-color: var(--primario);
+    color: var(--primario);
+}
+
+.show-button{
+    border-color: var(--secudario);
+    color: var(--secudario);
+}
+
+.pressed-button{
+    background-color: var(--secudario);
+    color: var(--primario);
+}
+
+
+.item-note {
+    grid-column: 2 / span 4;
+    background-color: #333;
+    padding: 8px;
+    border-radius: 8px;
+    color: #ffffff;
+    margin-top: 8px;
+    grid-row: 2;
+}
+
+.added-details {
+    margin-top: 10px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    display: none;
+    grid-column: 1 / 6;
+}
+
+.added-details.hidden {
+    display: none; /* Clase para ocultar el contenedor */
+}
+
+.detail-item{
+    display: flex;
+    flex-direction: column;
+}
+.form_input{
+    flex-direction: row;
+    gap: 60px;
+}
+.editDetails_input{
+    gap: 15%;
+}
+
+.header_details-item{
+    display: flex;
+    justify-content: space-between;
+}
+.header_details-item > :nth-child(2) {
+    padding-right: 50px;
+}
+
+.order_list__bottom{
+    border-top: 1px solid #333;
+    justify-self: end;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.totalPrice{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.totalPrice p{
+    padding: 0 20px;
+}
+.button_container{
+    padding: 15px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
