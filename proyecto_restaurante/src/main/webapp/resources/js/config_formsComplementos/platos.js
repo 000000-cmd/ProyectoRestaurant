@@ -2,7 +2,7 @@
 import { crearActualizarPlato, borrarPlato } from "../../../SolicitudesAPI/gestionarPlatos.js";
 import { URLs } from "../../../SolicitudesAPI/URL.js";
 import { previewImage } from "./utils.js";
-import { validarNumero, validarTexto } from "../ValidarFormularios.js";
+import { validarPrecio, validarTexto } from "../ValidarFormularios.js";
 
 export function handlePlatosForm(mode, IdForm, formulario) {
     if (mode === 'editDish' && IdForm) {
@@ -81,7 +81,7 @@ function Validarformulario(formulario) {
     if (!precio || precio.trim() === '') {
         isValid = false;
         errors.push('El precio del plato es obligatorio.');
-    } else if (!validarNumero(precio)) {
+    } else if (!validarPrecio(precio)) {
         isValid = false;
         errors.push('El precio del plato debe ser un número válido.');
     }

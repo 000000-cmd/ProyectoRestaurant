@@ -4,7 +4,7 @@ import { obtenerCategorias } from '../../SolicitudesAPI/consultasSelect/gestiona
 import { obtenerPlatos } from '../../SolicitudesAPI/gestionarPlatos.js';
 import { renderImage } from "./componentes/renderImage.js";
 import { enviarPedido, pedidoCompleto_Mesa } from "../../SolicitudesAPI/gestionarPedidos.js";
-
+import { validarTextoDetalles,validarNumero } from "./ValidarFormularios.js";
 document.addEventListener("DOMContentLoaded", async ()=>{
     renderSidebar('Mesero');
     const $submitButton = document.querySelector('#enviar-pedido');
@@ -106,7 +106,9 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         }
     
         console.log('Elementos del formulario:', form.elements);
-    
+        e.preventDefault()
+        
+
         try {
             const formData = new FormData(form);
             console.log('Contenido inicial de FormData:', [...formData.entries()]);
@@ -124,20 +126,100 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     
             console.log('Contenido de FormData después de añadir el extra input:', [...formData.entries()]);
             console.log(formData);
-            
+            const result=  Validarformulario(formData) 
+            if(result){
+                await enviarPedido(formData);
+                alert('Pedido enviado exitosamente!');
+            }
             // Llamada a la función de envío
-            await enviarPedido(formData);
-            alert('Pedido enviado exitosamente!');
+
             
         } catch (error) {
             console.error('Error al enviar el pedido:', error);
             alert('Hubo un error al enviar el pedido. Por favor, intente de nuevo.');
-        }
+        }  
     });
     
     
 })
+function Validarformulario(formData) {
+    console.log('FormData recibido:', [...formData.entries()]);
+    
+    let isValid = true;
+    let errors = [];
 
+    // Validar 'numeroMesa' (obligatorio, solo números)
+    const numeroMesa = formData.get('numeroMesa');
+    if (!numeroMesa || numeroMesa.trim() === '') {
+        isValid = false;
+        errors.push('El número de mesa es obligatorio.');
+    } else if (!validarNumero(numeroMesa)) {
+        isValid = false;
+        errors.push('El número de mesa debe contener solo números.');
+    }
+
+    // Obtener todos los campos 'cantidad_plato<ID>'
+    const cantidadPlatoKeys = [];
+    for (let key of formData.keys()) {
+        if (key.startsWith('cantidad_plato')) {
+            cantidadPlatoKeys.push(key);
+        }
+    }
+
+    // Verificar si no se encontró ningún plato
+    if (cantidadPlatoKeys.length === 0) {
+        isValid = false;
+        errors.push('Debe agregar al menos un plato con cantidad válida.');
+    }
+
+    // Validar cada 'cantidad_plato<ID>'
+    let platosEncontrados = 0; // Contador de platos encontrados
+
+    for (let key of cantidadPlatoKeys) {
+        const cantidadPlato = formData.get(key);
+        const platoID = key.replace('cantidad_plato', ''); // Extraer el ID del plato
+
+        if (cantidadPlato.trim() === '') {
+            isValid = false;
+            errors.push(`La cantidad del plato con ID ${platoID} es obligatoria.`);
+        } else if (!validarNumero(cantidadPlato)) {
+            isValid = false;
+            errors.push(`La cantidad del plato con ID ${platoID} debe contener solo números.`);
+        } else {
+            // Si la cantidad es válida, incrementamos el contador
+            platosEncontrados++;
+        }
+
+        // Validar detalles del plato (opcional)
+        const detallesPlatoKey = `detalles_plato_${platoID}`;
+        const detallesPlato = formData.get(detallesPlatoKey);
+
+        if (detallesPlato && detallesPlato.trim() !== '') {
+            if (!validarTextoDetalles(detallesPlato)) {
+                isValid = false;
+                errors.push(`Los detalles del plato con ID ${platoID} contienen caracteres inválidos.`);
+            }
+        }
+
+        // Validar 'PlatosAfectadosDetalle' (opcional)
+        const platosAfectadosKey = `PlatosAfectadosDetalle_${platoID}_1`;
+        const platosAfectadosDetalle = formData.get(platosAfectadosKey);
+
+        if (platosAfectadosDetalle && platosAfectadosDetalle.trim() !== '') {
+            if (!validarNumero(platosAfectadosDetalle)) {
+                isValid = false;
+                errors.push(`PlatosAfectadosDetalle_${platoID}_1 debe contener solo números.`);
+            }
+        }
+    }
+
+    // Mostrar errores si los hay
+    if (!isValid) {
+        alert(errors.join('\n'));
+    }
+
+    return isValid;
+}
 
 async function renderOrderItem(pedido) {
     const orderItemsContainer = document.querySelector('.order_items');

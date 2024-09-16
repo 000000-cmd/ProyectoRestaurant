@@ -89,6 +89,8 @@ async function mostrarIngresosTotales() {
     
     // Mostrar valores actuales
     $ventasTotales.textContent = reporteActual.total_ventas;
+    console.log(reporteActual);
+    
     $ingresosTotales.textContent = `$${reporteActual.total_recaudo.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
     // Calcular porcentajes de diferencia
