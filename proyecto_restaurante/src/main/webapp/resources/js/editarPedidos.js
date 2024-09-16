@@ -3,8 +3,6 @@ import { renderSidebar } from "./sideBarComponent.js"
 import { renderTablaEditarPedidos } from "./renderTables/renderEditarPedidos.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    renderSidebar("mesero");
-
     const pedidos = await cargarPedidosMesero();
     console.log(pedidos);
 

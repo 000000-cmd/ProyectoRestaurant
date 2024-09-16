@@ -87,36 +87,43 @@ export function crearTabContentMesero(id, container, platos) {
     }
 
     // Crear cards para cada plato
-    platos.forEach(plato => {
-        const cardContainer = document.createElement('div');
-        cardContainer.classList.add('card_container');
-        cardContainer.setAttribute("data-plate",`plate-${plato.id_plato}`)
+    if(platos.length>0){
+        platos.forEach(plato => {
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('card_container');
+            cardContainer.setAttribute("data-plate",`plate-${plato.id_plato}`)
+    
+            const imgContainer = document.createElement('div');
+            imgContainer.classList.add('img_card__container', 'img_dish__container');
+    
+            const imgElement = document.createElement('img');
+            imgElement.src = renderImage(plato.img_plato);
+            imgElement.alt = plato.nombre_plato;
+            imgContainer.appendChild(imgElement);
+            
+            cardContainer.appendChild(imgContainer);
+    
+            const detailsContainer = document.createElement('div');
+            detailsContainer.classList.add('details_card__container');
+            const titleElement = document.createElement('h2');
+            titleElement.textContent = plato.nombre_plato;
+            detailsContainer.appendChild(titleElement);
+            const priceElement = document.createElement('p');
+            priceElement.classList.add('small');
+            priceElement.textContent = `$${plato.precio}`;
+            detailsContainer.appendChild(priceElement);
+            cardContainer.appendChild(detailsContainer)
+    
+            tabContent.appendChild(cardContainer);
+        });
+    }else{
+        console.log("¡No hay pedidos pendientes");
+        const texto= document.createElement('h2')
+        texto.classList.add("textoTablaVacia")
+        texto.textContent="Sin platos... ¿Que vendes entonces? >:("
+        tabContent.appendChild(texto)
+    }
 
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('img_card__container', 'img_dish__container');
-
-        const imgElement = document.createElement('img');
-        imgElement.src = renderImage(plato.img_plato);
-        imgElement.alt = plato.nombre_plato;
-        imgContainer.appendChild(imgElement);
-        
-        cardContainer.appendChild(imgContainer);
-
-        const detailsContainer = document.createElement('div');
-        detailsContainer.classList.add('details_card__container');
-        const titleElement = document.createElement('h2');
-        titleElement.textContent = plato.nombre_plato;
-        detailsContainer.appendChild(titleElement);
-        const priceElement = document.createElement('p');
-        priceElement.classList.add('small');
-        priceElement.textContent = `$${plato.precio}`;
-        detailsContainer.appendChild(priceElement);
-        cardContainer.appendChild(detailsContainer);
-
-
-
-        tabContent.appendChild(cardContainer);
-    });
 
     container.appendChild(tabContent);
 }

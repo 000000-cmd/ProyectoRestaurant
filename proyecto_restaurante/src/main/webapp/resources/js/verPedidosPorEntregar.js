@@ -4,7 +4,7 @@ import { renderTablaEditarPedidos } from "./renderTables/renderEditarPedidos.js"
 import { renderPedidosPorEntregar } from "./renderTables/renderPedidosPorEntregar.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    renderSidebar("mesero");
+    renderSidebar("Mesero");
 
     const pedidos = await cargarPedidosMesero();
     console.log(pedidos);
@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 console.log(mesaId);
                 cambiarEstado(mesaId,'Por pagar')
                 // Redireccionar a newOrder.html con el ID del pedido como parámetro
-                
             }
         });
     });

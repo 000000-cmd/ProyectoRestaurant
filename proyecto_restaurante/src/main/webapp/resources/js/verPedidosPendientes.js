@@ -6,6 +6,7 @@ import { cargarPedidosChef } from "../../SolicitudesAPI/gestionarPedidos.js";
 document.addEventListener("DOMContentLoaded", async () => {
     renderSidebar('Chef');
     const pedidos = await cargarPedidosChef();
+    
     const tabla = renderTablaPendientes(pedidos);
     const contenedor = document.querySelector('.table-container');
 

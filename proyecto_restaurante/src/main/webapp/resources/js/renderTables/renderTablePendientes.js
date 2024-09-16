@@ -82,11 +82,19 @@ export function renderTablaPendientes(pedidos) {
     tabla.appendChild(thead);
     
     const tbody = document.createElement('tbody');
+    if(pedidos.length>0){
+        pedidos.forEach(pedido => {
+            const fila = crearFila(pedido);
+            tbody.appendChild(fila);
+        });    
+    } else{
+        console.log("¡No hay pedidos pendientes");
+        const texto= document.createElement('h2')
+        texto.classList.add("textoTablaVacia")
+        texto.textContent="No hay pedidos pendientes. Espera a algún cliente :)"
+        tbody.appendChild(texto)
+    }
 
-    pedidos.forEach(pedido => {
-        const fila = crearFila(pedido);
-        tbody.appendChild(fila);
-    });
 
     tabla.appendChild(tbody);
 

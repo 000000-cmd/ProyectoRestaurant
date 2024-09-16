@@ -60,9 +60,14 @@ export async function cargarPedidoAdmin() {
 
 export async function cargarPedidosMesero() {
     const pedidos = await cargarPedidos();
-    return pedidos.map(({ estado_pedido, ...resto }) => resto);
-}
+    console.log('Pedidos cargados:', pedidos);
 
+    // Filtrar por estado 'Preparado'
+    const pedidosPreparados = pedidos.filter(pedido => pedido.estado_pedido === 'En preparacion');
+    console.log('Pedidos en estado "Preparado":', pedidosPreparados.map(({ estado_pedido, ...resto }) => resto));
+
+    return pedidosPreparados.map(({ estado_pedido, ...resto }) => resto);
+}
 
 
 
@@ -75,12 +80,8 @@ export async function cargarPedidosMesero() {
  * los datos al servidor mediante una solicitud POST usando fetch.
  */
 export async function enviarPedido(formData) {
-    // Construir el JSON a partir del FormData
     const pedidoJson = construirJson(formData);
-    console.log(pedidoJson);
-    
-    console.log(pedidoJson);
-    
+
     // Enviar el JSON al endpoint del servidor usando fetch
     try {
         const response = await fetch('http://localhost:8080/pedidos', {
@@ -113,8 +114,9 @@ export async function enviarPedido(formData) {
  */
 function construirJson(formData) {
     // Establecer la mesa por defecto a 1, ya que no está en el formulario
-    const mesa = 1;
-
+    const mesa= parseInt(formData.get('numeroMesa'),10)
+    console.log(mesa);
+    
     // Arrays para guardar los platos y sus detalles
     const platos = [];
     const detalles = [];

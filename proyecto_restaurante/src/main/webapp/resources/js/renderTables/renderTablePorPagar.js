@@ -65,11 +65,19 @@ export function renderTablaCajero(pedidos) {
     tabla.appendChild(thead);
     
     const tbody = document.createElement('tbody');
-
-    pedidos.forEach(pedido => {
-        const fila = crearFila(pedido);
-        tbody.appendChild(fila);
-    });
+    if(pedidos,length>0){
+        pedidos.forEach(pedido => {
+            const fila = crearFila(pedido);
+            tbody.appendChild(fila);
+        });
+    }else{
+        console.log("¡No hay pedidos por pagar");
+        const texto= document.createElement('h2')
+        texto.classList.add("textoTablaVacia")
+        texto.textContent="No hay pedidos por pagar. ¡Buscalos!"
+        tbody.appendChild(texto)
+    }
+  
 
     tabla.appendChild(tbody);
 

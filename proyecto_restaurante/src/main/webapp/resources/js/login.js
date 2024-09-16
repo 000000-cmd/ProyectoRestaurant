@@ -22,13 +22,13 @@ $enviar.addEventListener('click', async (e) => {
 
             switch (data.rol.toLowerCase()) {
                 case 'mesero':
-                    window.location.href = '/mesero.html'; 
+                    window.location.href = '/newOrder.html'; 
                     break;
                 case 'cajero':
-                    window.location.href = '/cajero.html';
+                    window.location.href = '/porPagarFactura.html';
                     break;
                 case 'chef':
-                    window.location.href = '/chef.html'; 
+                    window.location.href = '/pedidos_Pendientes.html'; 
                     break;
                 case 'administrador':
                     window.location.href = '/dashboard.html'; 

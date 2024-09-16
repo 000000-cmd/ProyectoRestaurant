@@ -28,76 +28,54 @@ import { URLs } from "./URL.js";
  *     .then(response => console.log('Usuario actualizado exitosamente:', response))
  *     .catch(error => console.error('Error al actualizar el usuario:', error));
  */
-export async function crearActualizarUsuario(usuario, action,id) {
+export async function crearActualizarUsuario(usuario, action, id) {
     try {
-        // Realiza la solicitud PUT al endpoint específico del usuario por su ID
-        const formData = new FormData();
-        console.log(usuario);
-        formData.append('nombre_usuario', usuario.nombre_usuario.value);
-        formData.append('rol_usuario', usuario.rol_usuario.value);
-        formData.append('password_usuario', usuario.password.value);
+        const payload = {
+            nombre_usuario: usuario.nombre_usuario,
+            id_rol: usuario.id_rol,
+            password: usuario.password
+        };
 
-        if(action==="edit"){
-            const response = await fetch(`${URLs}/usuarios/${id}`, {
-                method: 'PUT',
-                body: formData,
-            });
-    
-            // Verifica si la respuesta fue exitosa
-            if (!response.ok) {
-                throw new Error(`Error al actualizar el usuario con ID ${id}: ${response.statusText}`);
-            }
-    
-            // Convierte la respuesta a JSON
-            const data = await response.json();
-    
-            // Verifica si la respuesta contiene un estado de éxito
-            if (data.status !== 'success') {
-                throw new Error(`Error en la respuesta del servidor: ${data.message}`);
-            }
-    
-            // Retorna los datos de la respuesta
-            return data;
-        }else{
-            const response = await fetch(`${URLs}/usuarios`, {
-                method: 'POST',
-                body: formData,
-            });
-    
-            // Verifica si la respuesta fue exitosa
-            if (!response.ok) {
-                throw new Error(`Error al actualizar el usuario con ID ${id}: ${response.statusText}`);
-            }
-    
-            // Convierte la respuesta a JSON
-            const data = await response.json();
-    
-            // Verifica si la respuesta contiene un estado de éxito
-            if (data.status !== 'success') {
-                throw new Error(`Error en la respuesta del servidor: ${data.message}`);
-            }
-    
-            // Retorna los datos de la respuesta
-            return data;
+        let url = `${URLs}/usuarios`;
+        let method = 'POST';
+
+        if (action === "edit") {
+            url = `${URLs}/usuarios/${id}`;
+            method = 'PUT';
         }
 
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al ${action === "edit" ? "editar" : "añadir"} el usuario: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data.status !== 'success') {
+            throw new Error(`Error en la respuesta del servidor: ${data.message}`);
+        }
+
+        return data;
     } catch (error) {
-        // Maneja los errores
         console.error('Error al actualizar el usuario:', error);
-        throw error; // Puedes volver a lanzar el error para manejarlo en otro lugar
+        throw error;
     }
 }
-
 
 export async function obtenerUsuarioPorID(idUsuario) {
     try {
         const response = await fetch(`${URLs}/usuarios/${idUsuario}`);
         const datos = await response.json();
 
-        return datos.data
+        return datos.data;
     } catch (error) {
         console.error('Error al encontrar el usuario:', error);
-        throw error; // Puedes volver a lanzar el error para manejarlo en otro lugar
+        throw error;
     }
-    
 }

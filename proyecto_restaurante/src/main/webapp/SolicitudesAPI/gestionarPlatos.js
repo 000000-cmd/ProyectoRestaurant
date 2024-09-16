@@ -110,7 +110,36 @@ export async function crearActualizarPlato(plato, action, id) {
     }
 }
 
+export async function borrarPlato(id) {
+    try {
+        // Realiza la solicitud GET al endpoint específico del plato por su ID
+        const response = await fetch(`${endpointUrl}/${id}`, {
+            method: "DELETE",
+        });
 
+        // Verifica si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error(`Error al obtener el plato con ID ${id}: ${response.statusText}`);
+        }
+
+        // Convierte la respuesta a JSON
+        const data = await response.json();
+
+        // Verifica si la respuesta contiene un estado de éxito
+        if (data.status !== 'success') {
+            throw new Error(`Error en la respuesta del servidor: ${data.message}`);
+        }
+
+        // Devuelve los datos del plato
+        return data;
+    } catch (error) {
+        // Maneja los errores
+        console.error('Error al obtener el plato por ID:', error);
+        throw error; // Opcionalmente, puedes volver a lanzar el error para manejarlo en otro lugar
+    }
+
+
+}
 
 
 export async function obtenerPlatoPorId(id) {

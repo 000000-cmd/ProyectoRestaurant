@@ -108,3 +108,30 @@ export async function obtenerCategoriaPorID(idCategoria) {
         throw error; // Lanza el error para manejarlo en otro lugar si es necesario
     }
 }
+
+export async function eliminarCategoria(idCategoria) {
+    try {
+        const response = await fetch(`${endpointUrl}/${idCategoria}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.message || response.statusText;
+            throw new Error(`Error al eliminar la categoría: ${errorMessage}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status !== 'success') {
+            throw new Error(`Error en la respuesta del servidor: ${data.message}`);
+        }
+
+        console.log(`Categoría con ID ${idCategoria} eliminada exitosamente.`);
+        return data;
+        
+    } catch (error) {
+        console.error(`Error al eliminar la categoría:`, error);
+        throw error;
+    }
+}

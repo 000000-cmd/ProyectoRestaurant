@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Llama a la función para renderizar la tabla y la inserta en el DOM
         const tabla = renderizarTablaHistoricoPedidos(pedidos);
-        document.getElementById('tablaContainer').appendChild(tabla); // Asegúrate de tener un contenedor en tu HTML con este ID
+        document.querySelector('.table-container').appendChild(tabla); // Asegúrate de tener un contenedor en tu HTML con este ID
     } else {
         console.error('No se pudieron obtener los pedidos');
     }

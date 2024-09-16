@@ -28,10 +28,17 @@ export async function renderTablaEditarPedidos(pedidos){
     tabla.appendChild(thead);
 
     const tbody = document.createElement('tbody');
-
-    for (const pedido of pedidos) {
-        const fila = await crearFila(pedido); // Espera a que la fila sea creada
-        tbody.appendChild(fila);
+    if(pedidos.length>0){
+        for (const pedido of pedidos) {
+            const fila = await crearFila(pedido); // Espera a que la fila sea creada
+            tbody.appendChild(fila);
+        }
+    }else{
+        console.log("¡No hay pedidos pendientes");
+        const texto= document.createElement('h2')
+        texto.classList.add("textoTablaVacia")
+        texto.textContent="No hay pedidos por editar. Que raro o.0?"
+        tbody.appendChild(texto)
     }
 
     tabla.appendChild(tbody);

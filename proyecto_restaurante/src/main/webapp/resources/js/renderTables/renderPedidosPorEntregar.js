@@ -26,10 +26,19 @@ export async function renderPedidosPorEntregar(pedidos) {
     thead.appendChild(encabezadoFila);
     tabla.appendChild(thead);
     const tbody = document.createElement('tbody');
-    for (const pedido of pedidos) {
-        const fila = await crearFila(pedido); // Espera a que la fila sea creada
-        tbody.appendChild(fila);
+    if(pedidos.length>0) {
+        for (const pedido of pedidos) {
+            const fila = await crearFila(pedido); // Espera a que la fila sea creada
+            tbody.appendChild(fila);
+        }
+    }else{
+        console.log("¡No hay pedidos pendientes");
+        const texto= document.createElement('h2')
+        texto.classList.add("textoTablaVacia")
+        texto.textContent="No hay pedidos por entregar. ¡Busca Clientes! >:("
+        tbody.appendChild(texto)
     }
+
 
     tabla.appendChild(tbody);
 

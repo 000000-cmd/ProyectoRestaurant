@@ -1,4 +1,4 @@
-import { obtenerRoles } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
+import { obtenerRoles, eliminarRol } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
     const data = await obtenerRoles();
@@ -47,7 +47,7 @@ function llenarTabla(datos) {
         eliminarBtn.classList.add('secundary_button');
         editarBtn.setAttribute("data-delete",`delete${rol.id_rol}`)
         eliminarBtn.textContent = 'Eliminar';
-        eliminarBtn.onclick = () => eliminarrol(rol.rol);
+        eliminarBtn.onclick = () => eliminarrol(rol);
         accionesTd.appendChild(eliminarBtn);
 
         // Añade la celda de acciones a la fila
@@ -59,7 +59,28 @@ function llenarTabla(datos) {
 }
 
 
-function eliminarrol(nombrerol) {
-    alert(`Eliminar rol: ${nombrerol}`);
-    // Aquí puedes añadir la lógica para eliminar el rol
+async function eliminarrol(rol) {
+    alert(`Eliminar rol: ${rol.rol} con id ${rol.id_rol}`);
+    const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el rol de ${rol.rol} ?`);
+
+    if (!confirmacion) {
+        return; // Cancelar la eliminación si el usuario no confirma
+    }
+    try {
+        const response = await eliminarRol(rol.id_rol);
+
+        if (response.status === 'success') {
+            alert(`El rol ${rol.rol} ha sido eliminada exitosamente.`);
+            // Recargar la tabla después de eliminar
+            const data = await obtenerRoles();
+            llenarTabla(data);  
+        } else {
+            alert(`Error al eliminar la categoría: ${response.message}`)
+            
+            console.error(`Error al eliminar la categoría: ${response.message}`);
+        }
+    } catch (error) {
+        console.error('Error al eliminar la categoría:', error);
+        alert('Ocurrió un error al intentar eliminar la categoría.');
+    }
 }

@@ -1,51 +1,71 @@
-.main_content{
+.main_content {
     width: 100%;
-    height: 100vh;
+    height: 100vh; /* Se mantiene en vista completa */
     display: flex;
-    gap:5%;
+    gap: 5%;
     padding: 18px 0;
 }
-.content{
+
+.content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100%; /* Ocupa toda la altura de su contenedor */
     width: 100%;
     padding: 3%;
     gap: 1rem;
 }
-.contenido{
+
+.contenido {
     width: 100%;
     display: flex;
-    flex-grow: 1;
+    flex-grow: 1; /* Expande para ocupar espacio disponible */
     flex-direction: column; 
     gap: 3%;
 }
-.registro_tabla{
-    height: 100%;
-    padding: 0 20px ;
+
+.registro_tabla {
+    height: 80vh; /* Asignamos altura relativa a la ventana */
+    padding: 0 20px;
+    display: flex; /* Usamos flex para manejar alturas internas */
+    flex-direction: column;
 }
 
-.table-container__registro{
-    max-height: 650px;
+.table-container__registro {
+    flex-grow: 1; /* Expande dentro de su contenedor padre */
+    overflow: hidden; /* Ocultamos el desbordamiento */
 }
 
-.container__registro{
-    max-height: 650px;
+.container__registro {
+    height: 100%; /* Asegura que la altura es 100% de su contenedor padre */
 }
 
-.header{
-    width: 100%;
-    padding-left: 25px;
+.table-container {
+    height: 100%; /* Mantiene la altura completa disponible */
+    overflow-y: auto; /* Permite desplazamiento vertical en el contenedor */
+    display: flex;
+    flex-direction: column; /* Necesario para ajustar alturas de hijos */
 }
 
-.bodyContainer{
-    max-height: 500px;
-    overflow-y: auto    ;
+.table-container tbody {
+    flex-grow: 1; /* Se expande dentro de su contenedor */
+    max-height: 65vh; /* Ajuste en porcentaje de la altura del contenedor */
+    overflow-y: auto; /* Permite scroll interno */
+}
+
+/* Ajustes adicionales */
+thead {
+    flex-shrink: 0; /* Mantiene la altura del encabezado fija */
+}
+
+tr {
+    display: table; /* Mantiene la estructura de fila */
+    width: 100%; /* Asegura alineación correcta */
+    table-layout: fixed;
 }
 
 .img-plato {
     width: 50px;
-    height: 50px; 
+    height: 50px;
     object-fit: cover;
-    border-radius: 5px; 
+    border-radius: 5px;
 }

@@ -70,6 +70,8 @@
     margin-bottom: 16px; /* Espacio debajo del encabezado */
     color: #f0f0f0; /* Color claro para el encabezado */
     padding: 15px 10px; 
+    display: flex;
+    gap: 150px;
 }
 
 .order-encabezado {
@@ -238,6 +240,10 @@
 }
 .editDetails_input{
     gap: 15%;
+}
+.input_mesa{
+    flex-direction: column;
+    gap: 0;
 }
 
 .header_details-item{

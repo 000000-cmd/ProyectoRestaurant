@@ -14,10 +14,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     if (mesaId) {
         // Lógica para cargar el pedido existente utilizando el ID del pedido
         const numero = parseInt(mesaId.replace('mesa', ''), 10); // Reemplaza "mesa" por una cadena vacía
-        const result= await pedidoCompleto_Mesa(numero); // Asegúrate de implementar esta función
-        const platos = await obtenerPlatos();
-        console.log(result);
-    
+        const result= await pedidoCompleto_Mesa(numero); // Asegúrate de implementar esta función    
         renderOrderItem(result); // Llama a la función para renderizar las órdenes en el aside
     }
 
@@ -99,24 +96,43 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     });
 
     $submitButton.addEventListener('click', async (e) => {
-        console.log(1);
+        console.log('Botón clicado');
         e.preventDefault();
     
-        // Asegúrate de que el selector es correcto
         const form = document.querySelector('#pedido-form');
         if (!form) {
             console.error('Formulario no encontrado');
             return;
         }
-        
-        // Mostrar los elementos del formulario para depuración
+    
         console.log('Elementos del formulario:', form.elements);
-        
-        // Pasar el formulario directamente a FormData
-        const formData = new FormData(form);
-        console.log('Contenido de FormData:', [...formData.entries()]); 
-        
-        await enviarPedido(formData);
+    
+        try {
+            const formData = new FormData(form);
+            console.log('Contenido inicial de FormData:', [...formData.entries()]);
+    
+            // Selecciona el input fuera del formulario
+            const extraInput = document.querySelector('#numero-mesa');
+    
+            if (extraInput) {
+                // Añade el input al FormData
+                formData.append(extraInput.name, extraInput.value);
+                console.log(`Añadido ${extraInput.name}: ${extraInput.value} a FormData`);
+            } else {
+                console.error('Input adicional no encontrado');
+            }
+    
+            console.log('Contenido de FormData después de añadir el extra input:', [...formData.entries()]);
+            console.log(formData);
+            
+            // Llamada a la función de envío
+            await enviarPedido(formData);
+            alert('Pedido enviado exitosamente!');
+            
+        } catch (error) {
+            console.error('Error al enviar el pedido:', error);
+            alert('Hubo un error al enviar el pedido. Por favor, intente de nuevo.');
+        }
     });
     
     
