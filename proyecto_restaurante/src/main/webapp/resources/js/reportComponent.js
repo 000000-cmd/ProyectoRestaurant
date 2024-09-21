@@ -1,4 +1,5 @@
 import { obtenerReporte } from "../../SolicitudesAPI/gestionarReportes.js";
+import { obtenerPlatoPorId } from "../../SolicitudesAPI/gestionarPlatos.js";
 
 // Función para mostrar el reporte en el gráfico
 export async function mostrarReporte(tipo, fecha) {
@@ -37,13 +38,26 @@ function calcularPorcentajes(data) {
         };
     });
 
-    const series = recaudoPorTipoPlatoArray.map(plato => {
-        return parseFloat(((plato.total_recaudo / totalRecaudo) * 100).toFixed(2));
-    });
+    // Ordenar por total_recaudo en orden descendente y seleccionar solo los primeros 3 platos
+    const topPlatos = recaudoPorTipoPlatoArray.sort((a, b) => b.total_recaudo - a.total_recaudo).slice(0, 3);
 
-    const labels = recaudoPorTipoPlatoArray.map(plato => plato.nombre_plato);
+    // Generar series y labels solo con los 3 platos seleccionados
+    const series = topPlatos.map(plato => parseFloat(((plato.total_recaudo / totalRecaudo) * 100).toFixed(2)));
+    const labels = topPlatos.map(plato => plato.nombre_plato);
+
+    // Calcular el porcentaje de "Otros" (el que falta para llegar a 100%)
+    const totalTop = series.reduce((a, b) => a + b, 0);
+    const porcentajeOtros = parseFloat((100 - totalTop).toFixed(2));
+
+    // Agregar el porcentaje de "Otros" solo si es mayor que 0
+    if (porcentajeOtros > 0) {
+        series.push(porcentajeOtros);
+        labels.push('Otros');
+    }
+
     return { series, labels };
 }
+
 
 function renderizarChart(contenedorGrafico, series, labels) {
     console.log(series);

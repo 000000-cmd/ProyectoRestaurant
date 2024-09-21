@@ -3,10 +3,18 @@ import { obtenerPlatoPorId } from "../../../SolicitudesAPI/gestionarPlatos.js";
 import { obtenerReporte } from "../../../SolicitudesAPI/gestionarReportes.js";
 import { renderImage } from "../componentes/renderImage.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    renderSidebar('Administrador');
-    mostrarTablaHistorico();
-});
+
+async function verificarUsuario() {
+    const rolRequerido = 'Admin'; // Cambia esto según el rol que necesites
+    const tieneAcceso = await verificarRol(rolRequerido);
+
+    if (tieneAcceso) {
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSidebar('Administrador');
+            mostrarTablaHistorico();
+        });
+    }
+}
 
 async function mostrarTablaHistorico() {
     try {
@@ -36,11 +44,11 @@ async function mostrarTablaHistorico() {
 
             return {
                 nombrePlato: plato.nombre_plato,
-                pedidosHoy: { 
+                pedidosHoy: {
                     porcentaje: calcularPorcentaje(pedidosPromedioDiario, totalPedidosDia), // Ajuste para promedio diario correcto
                     total: pedidosPromedioDiario.toFixed(1) // Valor de promedio diario
                 },
-                pedidosMes: { 
+                pedidosMes: {
                     porcentaje: calcularPorcentaje(plato.cantidad_vendida, totalPedidosMes), // Total mensual
                     total: plato.cantidad_vendida // Total de pedidos del mes
                 },

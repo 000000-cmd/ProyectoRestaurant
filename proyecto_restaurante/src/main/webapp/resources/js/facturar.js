@@ -2,28 +2,36 @@ import { renderSidebar } from "./sideBarComponent.js";
 import { cargarPedidosCajero, completarPedido, descargarFactura, pedidoCompleto_Mesa } from "../../SolicitudesAPI/gestionarPedidos.js";
 import { obtenerPlatoPorId } from '../../SolicitudesAPI/gestionarPlatos.js';
 
+async function verificarUsuario() {
+    const rolRequerido = 'Cajero'; // Cambia esto según el rol que necesites
+    const tieneAcceso = await verificarRol(rolRequerido);
 
-document.addEventListener("DOMContentLoaded", async () => {
-    renderSidebar('Cajero');
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const mesa = urlParams.get('mesa');
-
-    try {
-        const pedidos = await cargarPedidosCajero();
-        const pedido = pedidos.find(p => p.mesa === parseInt(mesa, 10));
+    if (tieneAcceso) {
+        document.addEventListener("DOMContentLoaded", async () => {
+            renderSidebar('Cajero');
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const mesa = urlParams.get('mesa');
         
-        if (!pedido) {
-            console.error('No se encontró el pedido para la mesa:', mesa);
-            return;
-        }
-
-        await renderFactura(pedido);
-
-    } catch (error) {
-        console.error('Error al cargar los pedidos:', error);
+            try {
+                const pedidos = await cargarPedidosCajero();
+                const pedido = pedidos.find(p => p.mesa === parseInt(mesa, 10));
+                
+                if (!pedido) {
+                    console.error('No se encontró el pedido para la mesa:', mesa);
+                    return;
+                }
+        
+                await renderFactura(pedido);
+        
+            } catch (error) {
+                console.error('Error al cargar los pedidos:', error);
+            }
+        });
     }
-});
+
+}
+
 
 async function renderFactura(pedido) {
     const facturarContainer = document.querySelector('.facturar-container');

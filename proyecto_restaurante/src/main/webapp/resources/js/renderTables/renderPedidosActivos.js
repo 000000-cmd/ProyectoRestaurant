@@ -18,7 +18,6 @@ function crearFila(pedido) {
     console.log(estadoNormalizado);
     
 
-    // Asignar clase según el estado del pedido
     switch (estadoNormalizado) {
         case 'Completado':
             estadoDiv.className = 'status_order complete';
@@ -31,6 +30,9 @@ function crearFila(pedido) {
             break;
         case 'Preparado':
             estadoDiv.className = 'status_order pendiente';
+            break;
+        case 'En espera':  // Nuevo estado "En espera"
+            estadoDiv.className = 'status_order espera';
             break;
         default:
             console.warn(`Estado no reconocido: ${pedido.estado_pedido}`);

@@ -38,7 +38,7 @@ export async function eliminarRol(idRol) {
         }
 
         console.log('Rol eliminado correctamente:', data);
-        return data.data;
+        return data;
 
     } catch (error) {
         console.error('Error al eliminar el rol:', error);

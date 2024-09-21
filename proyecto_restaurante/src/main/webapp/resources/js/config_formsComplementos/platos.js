@@ -53,11 +53,12 @@ function Validarformulario(formulario) {
     let errors = [];
     const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
 
-    // Validar imagen del plato
-    if (!img_plato || img_plato.size === 0) {
+    const img_plato_cargada = formulario.querySelector('#imageUpload').getAttribute('data-loaded') === 'true';
+
+    if (!img_plato && !img_plato_cargada) {
         isValid = false;
         errors.push('Debe seleccionar una imagen para el plato.');
-    } else if (img_plato.size > maxSizeInBytes) {
+    } else if (img_plato && img_plato.size > maxSizeInBytes) {
         isValid = false;
         errors.push(`La imagen es demasiado grande. El tamaño máximo permitido es de ${maxSizeInBytes / (1024 * 1024)} MB.`);
     }
@@ -133,10 +134,15 @@ async function cargarDatosDelPlato(IdPlato, formulario) {
 
         if (data.img_plato) {
             const label = imagenInput.closest('.custom-file-upload');
+            const texto=  imagenInput.nextElementSibling;
             const base64Image = `data:image/jpeg;base64,${data.img_plato}`;
             label.style.backgroundImage = `url(${base64Image})`;
             label.style.color = 'transparent';
             label.style.border = 'none';
+            texto.textContent = "";
+        
+            // Marcar que hay una imagen cargada desde el servidor
+            imagenInput.setAttribute('data-loaded', 'true');
         }
     } catch (error) {
         console.error('Error al cargar datos del plato:', error);
@@ -175,7 +181,7 @@ async function borrarplato(id_plato) {
         
         if (respuesta.status === 'success') {
             window.location.assign('gestion_platos.html');
-             }
+        }
 
     }
 }

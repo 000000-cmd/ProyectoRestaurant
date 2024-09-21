@@ -4,6 +4,7 @@ import { mostrarPlatosMasVendidos } from "./masOrdenadoComponent.js"; // Importa
 import { mostrarReporte } from "./reportComponent.js"; // Asegúrate de importar esta función correctamente
 import { cargarPedidoAdmin } from "../../SolicitudesAPI/gestionarPedidos.js";
 import { obtenerReporte } from "../../SolicitudesAPI/gestionarReportes.js";
+import { verificarRol } from "./verificarSesion.js";
 
 
 // Función para cargar y mostrar la tabla en el contenedor
@@ -137,13 +138,25 @@ function mostrarFechaActual() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderSidebar('Administrador'); // Renderizar la barra lateral
-    mostrarTablaEnDashboard(); // Mostrar la tabla de pedidos
-    mostrarIngresosTotales(); // Mostrar ingresos y comparaciones de porcentajes
-    mostrarFechaActual(); // Mostrar la fecha actual
-    calcularDiaActual();
-    escucharSelectPlatos();
-});
 
+async function verificarUsuario() {
+    const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
+    const tieneAcceso = await verificarRol(rolRequerido);
+
+    if (tieneAcceso) {
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSidebar('Administrador'); // Renderizar la barra lateral
+            mostrarTablaEnDashboard(); // Mostrar la tabla de pedidos
+            mostrarIngresosTotales(); // Mostrar ingresos y comparaciones de porcentajes
+            mostrarFechaActual(); // Mostrar la fecha actual
+            calcularDiaActual();
+            escucharSelectPlatos();
+        });
+        
+        
+    }
+
+}
+
+verificarUsuario();
 

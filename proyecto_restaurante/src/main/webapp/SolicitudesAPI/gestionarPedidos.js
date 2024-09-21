@@ -25,10 +25,10 @@ export async function cargarPedidosChef() {
     console.log('Pedidos cargados:', pedidos);
     
     // Filtrar por estado 'En preparacion' en lugar de 'Por preparar'
-    const pedidosPorPreparar = pedidos.filter(pedido => pedido.estado_pedido === 'En preparacion');
-    console.log('Pedidos en estado "En preparacion":', pedidosPorPreparar.map(({ estado_pedido, ...resto }) => resto));
+    const pedidosPorFiltrados = pedidos.filter(pedido => pedido.estado_pedido === 'En preparacion' || pedido.estado_pedido === 'En espera');
+    console.log('Pedidos en estado "En preparacion":', pedidosPorFiltrados);
     
-    return pedidosPorPreparar.map(({ estado_pedido, ...resto }) => resto);
+    return pedidosPorFiltrados;
 }
 
 export async function cargarPedidosCajero() {
@@ -58,6 +58,17 @@ export async function cargarPedidoAdmin() {
 }
 
 
+export async function cargarPedidosEntregablesMesero() {
+    const pedidos = await cargarPedidos();
+    console.log('Pedidos cargados:', pedidos);
+
+    // Filtrar por estado 'Preparado'
+    const pedidosPreparados = pedidos.filter(pedido => pedido.estado_pedido === 'Preparado');
+    console.log('Pedidos en estado "Preparado":', pedidosPreparados.map(({ estado_pedido, ...resto }) => resto));
+
+    return pedidosPreparados.map(({ estado_pedido, ...resto }) => resto);
+}
+
 export async function cargarPedidosMesero() {
     const pedidos = await cargarPedidos();
     console.log('Pedidos cargados:', pedidos);
@@ -68,8 +79,6 @@ export async function cargarPedidosMesero() {
 
     return pedidosPreparados.map(({ estado_pedido, ...resto }) => resto);
 }
-
-
 
 
 /**
@@ -98,8 +107,10 @@ export async function enviarPedido(formData) {
         // Verificar el estado de la respuesta y manejar errores si es necesario
         if (data.status !== 'success') {
             console.error('Error al agregar o actualizar el pedido:', data.message);
+            return false
         } else {
             console.log('Pedido agregado o actualizado exitosamente:', data);
+            return true
         }
     } catch (error) {
         console.error('Error al enviar el pedido:', error); // Manejo de errores en la solicitud
@@ -191,44 +202,50 @@ function construirJson(formData) {
 
 export async function cambiarEstado(mesa, estado) {
     // Verifica que el estado sea válido antes de definir los datos y enviar la solicitud
-    if (estado === 'En preparacion' || estado === 'Preparado' || estado === 'Por pagar' || estado === 'Completado') {
-        // Datos que se enviarán en la solicitud
-        const data = {
-            estado: estado
-        };
+    if (estado === 'En preparacion' || estado === 'En espera' || estado === 'Preparado' || estado === 'Por pagar' || estado === 'Completado') {
+        try {
+            // Datos que se enviarán en la solicitud
+            const data = {
+                estado: estado
+            };
+            console.log(mesa, estado);
+            
+            // Realizar la solicitud fetch
+            const response = await fetch(`${URLs}/pedidos/estado/${mesa}`, {
+                method: 'PUT', // Método PUT para actualizar
+                headers: {
+                    'Content-Type': 'application/json' // Especificar que se está enviando JSON
+                },
+                body: JSON.stringify(data) // Convertir los datos a formato JSON
+            });
 
-        // Realizar la solicitud fetch
-        fetch(`${URLs}/pedidos/estado/${mesa}`, {
-            method: 'PUT', // Método PUT para actualizar
-            headers: {
-                'Content-Type': 'application/json' // Especificar que se está enviando JSON
-            },
-            body: JSON.stringify(data) // Convertir los datos a formato JSON
-        })
-        .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es exitosa, lanza un error
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
             }
-            return response.json(); // Convertir la respuesta a JSON
-        })
-        .then(result => {
+
+            const result = await response.json(); // Convertir la respuesta a JSON
+
             // Manejar la respuesta
             if (result.status === 'success') {
                 console.log(`Estado cambiado a "${estado}" exitosamente`);
-                // Aquí puedes actualizar la interfaz o realizar otras acciones necesarias
+                return true; // Retornar true si todo salió bien
             } else {
                 console.error('Error al cambiar el estado:', result.message);
+                return false; // Retornar false si hubo un problema en la respuesta
             }
-        })
-        .catch(error => {
+        } catch (error) {
             // Manejar cualquier error que ocurra durante la solicitud
             console.error('Error en la solicitud:', error);
-        });
+            return false; // Retornar false en caso de error
+        }
     } else {
         console.log('Estado no válido');
+        return false; // Retornar false si el estado es inválido
     }
 }
+
+
 
 /**
  * Obtiene el pedido completo para una mesa específica.
@@ -282,4 +299,36 @@ export async function completarPedido(mesa) {
 export function descargarFactura(idHistorico) {
     const url = `${URLs}/reportes/factura/${idHistorico}`;
     window.open(url, '_blank');
+}
+
+
+/**
+ * Elimina el pedido asociado a una mesa específica.
+ * @param {number} mesa - El número de la mesa.
+ * @returns {Object} - La respuesta del servidor, indicando si el pedido fue eliminado exitosamente.
+ */
+export async function eliminarPedidoPorMesa(mesa) {
+    try {
+        const response = await fetch(`${URLs}/pedidos/eliminar/${mesa}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json(); // Convertir la respuesta en JSON
+
+        // Verificar si la operación fue exitosa
+        if (data.status === 'success') {
+            console.log(`Pedido para la mesa ${mesa} eliminado exitosamente.`);
+        } else {
+            console.error(`Error al eliminar el pedido para la mesa ${mesa}:`, data.message);
+        }
+
+        return data; // Retornar la respuesta del servidor
+
+    } catch (error) {
+        console.error(`Error al intentar eliminar el pedido para la mesa ${mesa}:`, error);
+        return { status: 'error', message: error.message }; // Manejo de errores en la solicitud
+    }
 }

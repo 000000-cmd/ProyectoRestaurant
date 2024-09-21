@@ -1,11 +1,21 @@
 import { obtenerCategorias, eliminarCategoria } from "../../../SolicitudesAPI/consultasSelect/gestionarCategorias.js";
 import { URLs } from "../../../SolicitudesAPI/URL.js";
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const data = await obtenerCategorias();
-    console.log(data);
-    llenarTabla(data);
-});
+async function verificarUsuario() {
+    const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
+    const tieneAcceso = await verificarRol(rolRequerido);
+
+    if (tieneAcceso) {
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await obtenerCategorias();
+            console.log(data);
+            llenarTabla(data);
+        });
+        
+    }
+
+}
+
 
 function llenarTabla(datos) {
     const tbody = document.querySelector('.tabla tbody');

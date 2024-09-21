@@ -1,24 +1,21 @@
-import {verificarUsuario} from '../../SolicitudesAPI/gestionarLogeo.js'
+import { verificarUsuario } from '../../SolicitudesAPI/gestionarLogeo.js';
 
 const $formulario = document.querySelector('#LoginForm');
 const $enviar = document.querySelector('#submitButton');
 
-
 $enviar.addEventListener('click', async (e) => {
     e.preventDefault(); 
 
+    const username = $formulario.querySelector('input[name="username"]').value;
+    const password = $formulario.querySelector('input[name="password"]').value;
 
-    const username = $formulario[0].value;
-    const password = $formulario[1].value;
+    
 
     try {
-
         const data = await verificarUsuario(username, password);
-
 
         if (data.status === 'success') {
             console.log('Login exitoso', data.rol);
-
 
             switch (data.rol.toLowerCase()) {
                 case 'mesero':
@@ -46,4 +43,5 @@ $enviar.addEventListener('click', async (e) => {
         alert('Hubo un problema al intentar iniciar sesión. Inténtalo nuevamente.');
     }
 });
+
 

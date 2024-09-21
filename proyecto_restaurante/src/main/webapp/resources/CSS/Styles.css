@@ -16,7 +16,6 @@
 
     --border_radius:15px;
 
-
     --fuente-primaria: 'Poppins', sans-serif; /* Para encabezados */
     --fuente-secundaria: 'Roboto', sans-serif; /* Para cuerpo y botones */
     
@@ -160,18 +159,11 @@ input:focus {
     box-shadow: none;
 }
 
-
-
 .textDefault{
     color: var(--font_difuso);
     padding: 15px 0;
 }
    
-
-
-
-
-
 /*Scroll*/
 
 

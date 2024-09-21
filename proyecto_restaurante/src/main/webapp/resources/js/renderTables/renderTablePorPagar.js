@@ -65,7 +65,7 @@ export function renderTablaCajero(pedidos) {
     tabla.appendChild(thead);
     
     const tbody = document.createElement('tbody');
-    if(pedidos,length>0){
+    if(pedidos.length>0){
         pedidos.forEach(pedido => {
             const fila = crearFila(pedido);
             tbody.appendChild(fila);

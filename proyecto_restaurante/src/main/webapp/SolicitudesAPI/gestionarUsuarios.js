@@ -79,3 +79,26 @@ export async function obtenerUsuarioPorID(idUsuario) {
         throw error;
     }
 }
+
+export async function traerUsuarios() {
+    try {
+        const response = await fetch(`${URLs}/usuarios`)
+        const data = await response.json()
+
+        return data.data
+    } catch (error) {
+        console.log("hubo un error al obtener a los usuarios", error)
+    }
+    
+}
+
+export async function eliminarUsuario(id) {
+    let url = `${URLs}/usuarios/${id}`;
+    const response = await fetch(url, {
+        method: "DELETE"
+    });
+
+     const data = await response.json()
+
+    return data
+}

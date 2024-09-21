@@ -62,3 +62,39 @@ tbody::-webkit-scrollbar-thumb:hover {
     text-align: center;
     padding: 34px;
 }
+
+/* Contenedor general para la barra y el texto */
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* La barra completa con el fondo */
+.full-progress-bar {
+    width: 45%; /* Ajusta este valor para controlar el ancho de la barra */
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 20px; /* Altura de la barra */
+    position: relative;
+}
+
+/* La barra de progreso que muestra el porcentaje */
+.progress-bar {
+    background-color: #f5a623; /* Color de la barra de progreso (ajusta según tu diseño) */
+    height: 100%;
+    width: 0; /* Este valor cambiará dinámicamente */
+    transition: width 0.5s ease-in-out; /* Animación suave para la barra */
+    border-radius: 8px; /* Asegura bordes redondeados */
+}
+
+/* Texto del porcentaje a la derecha */
+.progress-bar-container span {
+    width: 40%; /* Ajusta este valor si es necesario */
+    text-align: right;
+    font-size: 14px;
+    color: white; /* Ajusta el color del texto si es necesario */
+    padding-left: 10px; /* Espacio entre la barra y el texto */
+}

@@ -4,8 +4,9 @@ export function setupFormListeners() {
     const imageInput = document.getElementById('imageUpload');
 
     if (imageInput) {
-        imageInput.addEventListener('change', (e) => {
+        imageInput.addEventListener("change", (e) => {
             previewImage(e);
+            imageInput.removeAttribute('data-loaded'); // Remover la bandera de imagen cargada desde el servidor
         });
     }
 }

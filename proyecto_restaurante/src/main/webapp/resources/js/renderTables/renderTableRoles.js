@@ -1,30 +1,33 @@
 import { obtenerRoles, eliminarRol } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const data = await obtenerRoles();
-    console.log(data);
-    
-    // "1": "mesero",
-    // "2": "cajero",
-    // "3": "chef",
-    // "4": "administrador"
+async function verificarUsuario() {
+    const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
+    const tieneAcceso = await verificarRol(rolRequerido);
 
-    llenarTabla(data);
-});
+    if (tieneAcceso) {
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await obtenerRoles();
+            console.log(data);
+
+            llenarTabla(data);
+        });
+    }
+
+}
+
 
 
 function llenarTabla(datos) {
     const tbody = document.querySelector('.tabla tbody');
-    
+
     datos.forEach(rol => {
         console.log(rol);
-        
+
         // Crea una nueva fila
         const row = document.createElement('tr');
-
+        row.setAttribute("data-rol", rol.id_rol)
         // Crea y añade las celdas para cada dato del rol
-
-
         const rolTd = document.createElement('td');
         rolTd.textContent = rol.id_rol;
         row.appendChild(rolTd);
@@ -45,7 +48,7 @@ function llenarTabla(datos) {
         // Botón Eliminar
         const eliminarBtn = document.createElement('button');
         eliminarBtn.classList.add('secundary_button');
-        editarBtn.setAttribute("data-delete",`delete${rol.id_rol}`)
+        editarBtn.setAttribute("data-delete", `delete${rol.id_rol}`)
         eliminarBtn.textContent = 'Eliminar';
         eliminarBtn.onclick = () => eliminarrol(rol);
         accionesTd.appendChild(eliminarBtn);
@@ -60,7 +63,6 @@ function llenarTabla(datos) {
 
 
 async function eliminarrol(rol) {
-    alert(`Eliminar rol: ${rol.rol} con id ${rol.id_rol}`);
     const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el rol de ${rol.rol} ?`);
 
     if (!confirmacion) {
@@ -68,15 +70,16 @@ async function eliminarrol(rol) {
     }
     try {
         const response = await eliminarRol(rol.id_rol);
+        console.log(response.status === 'success');
 
         if (response.status === 'success') {
+            const fila = document.querySelector(`[data-rol="${rol.id_rol}"]`)
+            fila.remove();
             alert(`El rol ${rol.rol} ha sido eliminada exitosamente.`);
-            // Recargar la tabla después de eliminar
-            const data = await obtenerRoles();
-            llenarTabla(data);  
+
         } else {
             alert(`Error al eliminar la categoría: ${response.message}`)
-            
+
             console.error(`Error al eliminar la categoría: ${response.message}`);
         }
     } catch (error) {
@@ -84,3 +87,5 @@ async function eliminarrol(rol) {
         alert('Ocurrió un error al intentar eliminar la categoría.');
     }
 }
+
+verificarUsuario();

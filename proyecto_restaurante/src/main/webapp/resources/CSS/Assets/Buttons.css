@@ -60,23 +60,34 @@ button{
     border-radius: 30px;
 }
 
-.complete{
-    background-color: #324C4F;
-    color: #50D1AA;
-}
-.porpargar{
-    background-color: #446887;
-    color: #7EC2FC;
+.complete {
+    background-color: #2F5F5D; /* Verde oscuro más brillante */
+    color: #5CE3B7; /* Verde claro más brillante */
 }
 
-
-.pendiente{
-    background-color: #B56124;
-    color: #FFD100;
+.porpargar {
+    background-color: #3E5B8A; /* Azul medio más brillante */
+    color: #A3D7FF; /* Azul claro más brillante */
 }
-.preparacion{
-    background-color: #171573;
-    color: #8FCFFF;
+
+.pendiente {
+    background-color: #DB6A29; /* Naranja medio brillante */
+    color: #FFD700; /* Amarillo dorado brillante */
+}
+
+.preparacion {
+    background-color: #2D2F9F; /* Azul medianoche más brillante */
+    color: #9ED9FF; /* Azul claro */
+}
+
+.espera {
+    background-color: #FFA500; /* Naranja para indicar que está en espera */
+    color: #FFFFFF; /* Blanco para el texto */
+}
+
+.cancelado {
+    background-color: #A62828; /* Rojo medio-brillante */
+    color: #FF847C; /* Rojo claro */
 }
 
 

@@ -69,3 +69,47 @@ tr {
     object-fit: cover;
     border-radius: 5px;
 }
+
+nav[data-pagination] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+nav[data-pagination] ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 10px;
+
+}
+
+nav[data-pagination] li {
+    margin: 5px;
+}
+
+nav[data-pagination] li:hover {
+    color: var(--primario);
+}
+
+nav[data-pagination] a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav[data-pagination] .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+nav[data-pagination] .current a {
+    padding: 10px;
+    font-weight: bold;
+    text-decoration: underline;
+    background-color: var(--background1);
+    border-radius: 4px;
+}
+
+

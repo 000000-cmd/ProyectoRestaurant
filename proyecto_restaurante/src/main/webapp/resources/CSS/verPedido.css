@@ -63,6 +63,7 @@
     font-size: 2rem;
     cursor: pointer;
     z-index: 1;
+    transition: background-color 0.3s, opacity 0.3s, cursor 0.3s; /* Transición suave */
 }
 
 .carousel-button--left {
@@ -71,6 +72,12 @@
 
 .carousel-button--right {
     right: 10px;
+}
+/* Estilo para los botones deshabilitados */
+.carousel-button:disabled {
+    color: #999; /* Cambia el color del texto a gris */
+    opacity: 0.5; /* Reduce la opacidad */
+    cursor: not-allowed; /* Cambia el cursor */
 }
 
 .button_container{

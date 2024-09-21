@@ -1,5 +1,6 @@
 // categorias.js
 import { crearActualizarCategoria, obtenerCategoriaPorID } from "../../../SolicitudesAPI/consultasSelect/gestionarCategorias.js";
+import{validarTexto} from "../ValidarFormularios.js";
 
 export function handleCategoriasForm(mode, IdForm, formulario) {
     if (mode === 'editCategoria' && IdForm) {

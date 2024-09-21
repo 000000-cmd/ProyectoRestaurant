@@ -5,6 +5,12 @@ import { handleRolesForm } from './config_formsComplementos/roles.js';
 import { handleCategoriasForm } from './config_formsComplementos/categorias.js';
 import { handleUsuariosForm } from './config_formsComplementos/usuarios.js';
 
+async function verificarUsuario() {
+    const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
+    const tieneAcceso = await verificarRol(rolRequerido);
+
+    if (tieneAcceso) {
+        
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const mode = urlParams.get('mode');
@@ -37,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             formulario.id = 'addDish';
     }
 });
+    }
+
+}
+
 
 function manejarFormularioSubmit(e) {
     e.preventDefault();
@@ -74,6 +84,9 @@ function manejarFormularioSubmit(e) {
         submitButton.disabled = false;
     }
 }
+
+verificarUsuario();
+
 // import { crearActualizarCategoria, obtenerCategoriaPorID } from "../../SolicitudesAPI/consultasSelect/gestionarCategorias.js";
 // import { crearActualizarPlato } from "../../SolicitudesAPI/gestionarPlatos.js";
 // import { crearActualizarRol, obtenerRolPorId } from "../../SolicitudesAPI/gestionarRol.js";

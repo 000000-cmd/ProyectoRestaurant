@@ -1,6 +1,7 @@
 // usuarios.js
 import { crearActualizarUsuario, obtenerUsuarioPorID } from "../../../SolicitudesAPI/gestionarUsuarios.js";
 import { obtenerRoles } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
+import { validarTexto } from "../ValidarFormularios.js";
 
 
 export async function handleUsuariosForm(mode, IdForm, formulario) {
@@ -67,7 +68,7 @@ function Validarformulario(formulario) {
     if (!password || password.trim() === '') {
         isValid = false;
         errors.push('La contraseña es obligatoria.');
-    } else if (!validarPassword(password)) {
+    } else if (password.length<8) {
         isValid = false;
         errors.push('La contraseña debe tener al menos 8 caracteres.');
     }
@@ -80,10 +81,16 @@ function Validarformulario(formulario) {
     return isValid;
 }
 
-function validarRol(rol) {
-
-    const rolesPermitidos = ['Administrador', 'Editor', 'Usuario']; // Ajusta según tus roles
-    return rolesPermitidos.includes(rol);
+async function validarRol(rol) {
+    try {
+        const roles = await obtenerRoles(); // Obtén los roles desde una fuente externa
+        // Verificar si el rol existe en los roles obtenidos
+        const rolesPermitidos = roles.map(r => r.id_rol); // Asumimos que 'rol' es la clave del nombre del rol
+        return rolesPermitidos.includes(rol);
+    } catch (error) {
+        console.error('Error al validar el rol:', error);
+        return false; // Si hay un error, devolvemos false
+    }
 }
 
 
