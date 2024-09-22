@@ -6,6 +6,8 @@
     <title>Login</title>
     <link rel="stylesheet" href="resources/CSS/Styles.css">
     <link rel="stylesheet" href="resources/CSS/login.css">
+    <!-- Fuentes de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <section class="background1 background_login">
@@ -15,18 +17,57 @@
             </div>
             <div class="form_login">
                 <form class="form_input" method="post" id="LoginForm"> 
-                    <label class="h2" for="username">Nombre de usuario</label>
-                    <input type="text" name="username" id="username" required> 
-                    <label class="h2" for="password">Contraseña</label>
-                    <input type="password" name="password" id="password" required> 
+                    <!-- Grupo de Entrada: Nombre de Usuario -->
+                    <div class="input-group">
+                        <label class="h2 visually-hidden" for="username">Nombre de usuario</label>
+                        <div class="input-container">
+                            <input type="text" name="username" id="username" class="input-field" placeholder="Nombre de Usuario" required>
+                            <!-- Icono de Validación Correcta -->
+                            <span class="icon valid-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="#f5ba42" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7L10 17l-5-5"/>
+                                </svg>
+                            </span>
+                            <!-- Icono de Validación Incorrecta -->
+                            <span class="icon invalid-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="#FF6B6B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <span class="error-message" id="username-error">Este campo no puede estar vacío.</span>
+                    </div>
+                    
+                    <!-- Grupo de Entrada: Contraseña -->
+                    <div class="input-group">
+                        <label class="h2 visually-hidden" for="password">Contraseña</label>
+                        <div class="input-container">
+                            <input type="password" name="password" id="password" class="input-field" placeholder="Contraseña" required>
+                            <!-- Icono de Validación Correcta -->
+                            <span class="icon valid-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="#f5ba42" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7L10 17l-5-5"/>
+                                </svg>
+                            </span>
+                            <!-- Icono de Validación Incorrecta -->
+                            <span class="icon invalid-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="#FF6B6B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <span class="error-message" id="password-error">La contraseña debe tener al menos 8 caracteres.</span>
+                    </div>
+                    
+                    <!-- Botones y Enlaces -->
                     <div class="button_container form_button">
-                        <a class="h2" href="recuperar_contraseña">¿Olvidó su contraseña?</a> 
                         <button class="primary_button" type="submit" id="submitButton">Ingresar</button> 
                     </div>
                 </form>
             </div>
         </div>
     </section>
+
     <script type="module" src="../resources/js/login.js"></script>
 </body>
 </html>

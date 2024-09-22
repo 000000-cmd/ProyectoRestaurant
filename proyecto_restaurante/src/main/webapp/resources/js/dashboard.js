@@ -139,24 +139,26 @@ function mostrarFechaActual() {
 }
 
 
-async function verificarUsuario() {
-    const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
-    const tieneAcceso = await verificarRol(rolRequerido);
+async function inicializarDashboard() {
+    try {
+        const rolRequerido = 'Administrador'; // Asegúrate de que coincide con el rol exacto
+        const tieneAcceso = await verificarRol(rolRequerido);
+        console.log('¿Tiene acceso?', tieneAcceso);
 
-    if (tieneAcceso) {
-        document.addEventListener('DOMContentLoaded', () => {
-            renderSidebar('Administrador'); // Renderizar la barra lateral
-            mostrarTablaEnDashboard(); // Mostrar la tabla de pedidos
-            mostrarIngresosTotales(); // Mostrar ingresos y comparaciones de porcentajes
-            mostrarFechaActual(); // Mostrar la fecha actual
-            calcularDiaActual();
+        if (tieneAcceso) {
+            // Cargar componentes
+            renderSidebar('Administrador');
+            await mostrarTablaEnDashboard();
+            await mostrarIngresosTotales();
+            mostrarFechaActual();
             escucharSelectPlatos();
-        });
-        
-        
+            console.log('Dashboard inicializado correctamente.');
+        }
+    } catch (error) {
+        console.error('Error al inicializar el dashboard:', error);
     }
-
 }
 
-verificarUsuario();
+// Ejecutar la inicialización cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', inicializarDashboard);
 

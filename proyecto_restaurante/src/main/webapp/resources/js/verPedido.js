@@ -1,13 +1,13 @@
 import { renderSidebar } from "./sideBarComponent.js";
 import { buscarPedido } from "./renderTables/renderCarruselPlatos.js"; // Importa la función buscarPedido
 import { cambiarEstado } from "../../../SolicitudesAPI/gestionarPedidos.js"; // Importa la función para cambiar estado
+import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
     const rolRequerido = 'Chef'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener("DOMContentLoaded", async () => {
             renderSidebar('Chef');
 
 
@@ -126,10 +126,8 @@ async function verificarUsuario() {
                 // Habilitar el botón derecho cuando se mueve del último slide
                 nextButton.disabled = false;
             });
-        });
-
 
     }
 }
 
-verificarUsuario();
+document.addEventListener('DOMContentLoaded', verificarUsuario);

@@ -2,13 +2,13 @@ import { cambiarEstado, cargarPedidosEntregablesMesero } from "../../Solicitudes
 import { renderSidebar } from "./sideBarComponent.js"
 import { renderTablaEditarPedidos } from "./renderTables/renderEditarPedidos.js";
 import { renderPedidosPorEntregar } from "./renderTables/renderPedidosPorEntregar.js";
+import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
     const rolRequerido = 'Mesero'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener("DOMContentLoaded", async () => {
             renderSidebar("Mesero");
         
             const pedidos = await cargarPedidosEntregablesMesero();
@@ -39,10 +39,9 @@ async function verificarUsuario() {
                     }
                 });
             });
-        });
     }
 }
 
-verificarUsuario();
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 
 

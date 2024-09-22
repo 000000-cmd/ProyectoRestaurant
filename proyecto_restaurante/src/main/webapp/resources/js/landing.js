@@ -1,5 +1,5 @@
 import { obtenerReporte } from '../../SolicitudesAPI/gestionarReportes.js';
-import { obtenerPlatoPorId } from '../../SolicitudesAPI/gestionarPlatos.js';
+import { obtenerPlatoPorId, obtenerPlatos } from '../../SolicitudesAPI/gestionarPlatos.js';
 import { renderImage } from './componentes/renderImage.js'
 
 
@@ -82,4 +82,81 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Añadir el contenedor del plato al contenedor general
         platosContainer.appendChild(platoElement);
     });
+
+    obtenerMenuPlatos();
 });
+
+async function obtenerMenuPlatos() {
+    try {
+        const platos = await obtenerPlatos() // Cambia la URL a la API de tu backend
+        const platosPorCategoria = organizarPorCategoriaArray(platos); // Agrupar platos por categoría
+        console.log(platosPorCategoria);
+    
+        mostrarPlatosPorCategoria(platosPorCategoria);
+    } catch (error) {
+        console.error('Error al obtener los platos:', error);
+    }
+}
+
+function organizarPorCategoriaArray(platos) {
+    const platosPorCategoria = {};
+
+    platos.forEach(plato => {
+        const { categoria } = plato;
+        if (!platosPorCategoria[categoria]) {
+            platosPorCategoria[categoria] = [];
+        }
+        platosPorCategoria[categoria].push(plato);
+    });
+
+    // Convertir el objeto en un array para poder recorrerlo con forEach
+    return Object.keys(platosPorCategoria).map(categoria => ({
+        categoria,
+        platos: platosPorCategoria[categoria]
+    }));
+}
+function mostrarPlatosPorCategoria(platosPorCategoriaArray) {
+    const menuContainer = document.querySelector('.menuContainer');
+    const template = document.getElementById('plato-template');
+
+    // Recorrer el array de categorías
+    platosPorCategoriaArray.forEach(({ categoria, platos }) => {
+        // Crear un contenedor para la categoría
+        const categoriaContainer = document.createElement('div');
+        categoriaContainer.classList.add('platosCategoria');
+
+        // Crear y añadir el título de la categoría
+        const categoriaTitle = document.createElement('h2');
+        categoriaTitle.textContent = categoria;
+        categoriaContainer.appendChild(categoriaTitle);
+
+        // Añadir los platos dentro de la categoría
+        platos.forEach(plato => {
+            const platoClone = template.content.cloneNode(true);
+
+            // Actualizar imagen del plato
+            const imgElement = platoClone.querySelector('img');
+            imgElement.src = `data:image/jpeg;base64,${plato.img_plato}`; // Suponiendo que la imagen está en base64
+            imgElement.alt = plato.nombre_plato;
+
+            // Actualizar nombre del plato
+            const nombrePlato = platoClone.querySelector('.infoplato h2');
+            nombrePlato.textContent = plato.nombre_plato;
+
+            // Actualizar detalles del plato
+            const detallesPlato = platoClone.querySelector('.infoplato p');
+            detallesPlato.textContent = plato.descripcion;
+
+            // Actualizar precio del plato
+            const precioPlato = platoClone.querySelector('.precioplato p');
+            precioPlato.textContent = `$${plato.precio.toLocaleString()}`;
+
+            // Añadir el plato al contenedor de la categoría
+            categoriaContainer.appendChild(platoClone);
+        });
+
+        // Añadir el contenedor de la categoría al menú principal
+        menuContainer.appendChild(categoriaContainer);
+    });
+}
+

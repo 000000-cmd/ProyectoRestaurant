@@ -1,19 +1,271 @@
-.background_login{
+/* login.css */
+
+/* Sección de Login */
+.background_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--background1) 0%, var(--background2) 100%);
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+/* Contenedor del Login */
+.login_container {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr); 
+    gap: 20px; 
+    width: 35vw;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Logo */
+.img_container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login_container{
-    display: grid;
-    grid-template-rows: repeat(3, 1fr); 
-    /*grid-template-rows: 1fr 2fr 1fr;*/
-    gap: 10px; 
-    width: 35vw;
-    height: 60vh; 
+.logo_login img {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
 }
-.form_login{
+
+/* Formulario de Login */
+.form_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form_input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.h2 {
+    color: wheat;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+/* Accesibilidad: Visually Hidden */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* Evita el salto de línea */
+    border: 0;
+}
+
+/* Inputs */
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 16px;
+    padding-left: 40px; /* Padding for the icon */
+    background-color: var(--terciario);
+    color: var(--blanco);
+    border: none;
+    outline: none;
+    border-bottom: 1px solid wheat;
+    border-radius: 6px;
+    transition: all 0.3s ease, border-bottom 0.3s ease;
+    font-size: 1rem;
+}
+
+.input-field::placeholder {
+    color: var(--disabled);
+}
+
+.input-field:hover {
+    background-color: #424242;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.input-field:focus {
+    background-color: #424242;
+    border-bottom: 1px solid var(--primario);
+}
+
+/* Iconos */
+.icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1em;
+    height: 1em;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.valid-icon {
+    stroke: #f5ba42;
+}
+
+.invalid-icon {
+    stroke: #FF6B6B;
+}
+
+/* Mostrar iconos según clases del input-group */
+.input-group.valid .input-container .valid-icon {
+    opacity: 1;
+    visibility: visible;
+}
+
+.input-group.invalid .input-container .invalid-icon {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mensajes de Error */
+.error-message {
+    color: #FF6B6B;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
+}
+
+.input-group.invalid .error-message {
+    display: block;
+}
+
+.input-group.valid .error-message {
+    display: none;
+}
+
+.input-group.valid .input-field {
+    border-bottom: 1px solid var(--primario);
+}
+
+.input-group.invalid .input-field {
+    border-bottom: 1px solid #FF6B6B;
+}
+
+/* Botón de Ingreso */
+.primary_button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primario);
+    color: var(--secundario);
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.primary_button:hover {
+    background-color: #e0c47a; /* Ligero ajuste para el hover */
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: none;
+}
+
+.primary_button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de Recuperación de Contraseña */
+.button_container.form_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.button_container.form_button a {
+    color: wheat;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.button_container.form_button a:hover {
+    color: var(--primario);
+}
+
+/* Opciones Adicionales */
+.additional-options {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
+    width: 100%;
+}
 
+.additional-options .link {
+    margin: 0 10px;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .login_container {
+        width: 80vw;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .background_login {
+        padding: 10px;
+    }
+    .login_container {
+        width: 100%;
+    }
+    .primary_button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+    .button_container.form_button {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .button_container.form_button a {
+        margin-bottom: 10px;
+    }
+}
+
+/* Transiciones Suaves para Validación */
+.input-field.valid {
+    transition: border-bottom 0.3s ease;
+}
+
+.input-field.invalid {
+    transition: border-bottom 0.3s ease;
 }

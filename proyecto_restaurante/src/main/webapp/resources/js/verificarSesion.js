@@ -1,37 +1,47 @@
+// verificarSesion.js
+
 export async function verificarRol(rolRequerido) {
     try {
-        // Obtener el token almacenado (por ejemplo, en localStorage)
+        console.log('Iniciando verificación de rol...');
         const token = localStorage.getItem('token');
+        console.log('Token obtenido:', token);
 
         if (!token) {
             throw new Error('Token no disponible');
         }
 
-        const response = await fetch('/check-session', {
+        const response = await fetch('http://localhost:8080/auth/check-session', {
+            method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
         });
 
+        console.log('Respuesta HTTP de check-session:', response.status);
+
         if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Error en check-session:', errorData);
             throw new Error('Error al verificar la sesión');
         }
 
         const data = await response.json();
+        console.log('Datos de check-session:', data);
 
-        // Verificar si el rol del usuario es el correcto
         if (data.rol !== rolRequerido) {
-            alert('No tienes permiso para acceder a esta página');
-            window.location.href = '/forbidden'; // Redirige a una página de acceso denegado
+            console.log('Rol no coincide:', data.rol, rolRequerido);
+            window.location.href = '/forbidden.html'; // Asegúrate de tener esta página
             return false;
         }
 
-        return true; // El rol es correcto, permite continuar
-
+        console.log('Rol verificado correctamente:', data.rol);
+        return true;
     } catch (error) {
-        alert('Error al verificar el rol');
         console.error('Error al verificar el rol:', error);
-        window.location.href = '/index.html';
+        alert('Error al verificar el rol');
+        window.location.href = '/index.html'; // Redirige al login si hay error
         return false;
     }
 }
+

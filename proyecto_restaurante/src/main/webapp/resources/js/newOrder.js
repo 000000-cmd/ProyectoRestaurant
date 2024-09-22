@@ -5,13 +5,13 @@ import { obtenerPlatos } from '../../SolicitudesAPI/gestionarPlatos.js';
 import { renderImage } from "./componentes/renderImage.js";
 import { enviarPedido, pedidoCompleto_Mesa } from "../../SolicitudesAPI/gestionarPedidos.js";
 import { validarTextoDetalles, validarNumero } from "./ValidarFormularios.js";
+import { verificarRol } from "./verificarSesion.js";
 
 async function verificarUsuario() {
     const rolRequerido = 'Mesero'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if(tieneAcceso){
-        document.addEventListener("DOMContentLoaded", async () => {
             renderSidebar('Mesero');
             const $submitButton = document.querySelector('#enviar-pedido');
         
@@ -149,14 +149,11 @@ async function verificarUsuario() {
                     alert('Hubo un error al enviar el pedido. Por favor, intente de nuevo.');
                 }
             });
-        
-        
-        })
     }
 }
 
 
-
+document.addEventListener("DOMContentLoaded", verificarUsuario);
 
 
 
@@ -517,6 +514,7 @@ function addOrderItem(plato) {
         const quantity = parseInt(quantityInput.value, 10) || 1;
         const totalPrice = (plato.precio * quantity).toFixed(2);
         totalPriceElement.textContent = `$${totalPrice}`;
+        updateSubtotal(); // Actualizar el subtotal general
     });
 
     // Set up delete button
@@ -563,4 +561,20 @@ function addOrderItem(plato) {
     orderItemsContainer.appendChild(orderItemElement); // Añadimos el elemento clonado
 }
 
-verificarUsuario();
+function updateSubtotal() {
+    // Obtener todos los elementos con clase '.item-total-price p'
+    const totalPriceElements = document.querySelectorAll('.item-total-price p');
+    let subtotal = 0;
+
+    // Sumar los precios de todos los artículos
+    totalPriceElements.forEach((priceElement) => {
+        const price = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g, "")) || 0; // Extraer solo números del precio
+        subtotal += price;
+    });
+
+    // Actualizar el valor en el elemento .subTotal
+    const subtotalElement = document.querySelector('.subTotal');
+    if (subtotalElement) {
+        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+    }
+}

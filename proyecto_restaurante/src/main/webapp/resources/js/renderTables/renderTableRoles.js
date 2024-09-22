@@ -1,22 +1,20 @@
 import { obtenerRoles, eliminarRol } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
+import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
     const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
+        const data = await obtenerRoles();
+        console.log(data);
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const data = await obtenerRoles();
-            console.log(data);
-
-            llenarTabla(data);
-        });
+        llenarTabla(data);
     }
 
 }
 
-
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 
 function llenarTabla(datos) {
     const tbody = document.querySelector('.tabla tbody');
@@ -88,4 +86,3 @@ async function eliminarrol(rol) {
     }
 }
 
-verificarUsuario();

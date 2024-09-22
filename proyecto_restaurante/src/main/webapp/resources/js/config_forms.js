@@ -4,6 +4,7 @@ import { handlePlatosForm } from './config_formsComplementos/platos.js';
 import { handleRolesForm } from './config_formsComplementos/roles.js';
 import { handleCategoriasForm } from './config_formsComplementos/categorias.js';
 import { handleUsuariosForm } from './config_formsComplementos/usuarios.js';
+import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
     const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
@@ -11,7 +12,7 @@ async function verificarUsuario() {
 
     if (tieneAcceso) {
         
-document.addEventListener('DOMContentLoaded', () => {
+
     const urlParams = new URLSearchParams(window.location.search);
     const mode = urlParams.get('mode');
     const IdForm = urlParams.get('id');
@@ -42,10 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Modo no reconocido, usando ID por defecto "addDish"');
             formulario.id = 'addDish';
     }
-});
+
     }
 
 }
+
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 
 
 function manejarFormularioSubmit(e) {

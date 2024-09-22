@@ -1,20 +1,18 @@
 import { eliminarUsuario, traerUsuarios } from "../../../SolicitudesAPI/gestionarUsuarios.js";
+import { verificarRol } from "../verificarSesion.js";
 
 async function verificarUsuario() {
     const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        
-document.addEventListener('DOMContentLoaded',async () => {
-    const usuarios= await traerUsuarios();
+        const usuarios= await traerUsuarios();
+        llenarTablaUsuarios(usuarios)
 
-    llenarTablaUsuarios(usuarios)
-})
     }
 
 }
-
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 
 function llenarTablaUsuarios(datos) {
     const tbody = document.querySelector('.tabla tbody');
@@ -89,5 +87,3 @@ async function eliminarusuario(usuario) {
         alert('Ocurrió un error al intentar eliminar la categoría.');
     }
 }
-
-verificarUsuario();

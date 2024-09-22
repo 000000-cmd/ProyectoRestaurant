@@ -2,12 +2,15 @@ import { renderSidebar } from "./sideBarComponent.js"
 import { renderTablaPendientes } from "./renderTables/renderTablePendientes.js";
 import { cargarPedidosChef } from "../../SolicitudesAPI/gestionarPedidos.js";
 import { cambiarEstado } from "../../../SolicitudesAPI/gestionarPedidos.js";
+import { verificarRol } from './verificarSesion.js';
+
+
+
 async function verificarUsuario() {
     const rolRequerido = 'Chef'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener("DOMContentLoaded", async () => {
             renderSidebar('Chef');
             const pedidos = await cargarPedidosChef();
         
@@ -37,14 +40,9 @@ async function verificarUsuario() {
                     }
                 });
             });
-        
-        
-        });
-
-
 
     }
 }
 
-verificarUsuario();
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 

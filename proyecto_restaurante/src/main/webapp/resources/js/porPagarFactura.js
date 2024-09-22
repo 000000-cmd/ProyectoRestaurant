@@ -1,13 +1,14 @@
 import { renderSidebar } from "./sideBarComponent.js"
 import { renderTablaCajero } from "./renderTables/renderTablePorPagar.js";
 import { cargarPedidosCajero } from "../../SolicitudesAPI/gestionarPedidos.js";
+import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
     const rolRequerido = 'Chef'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener("DOMContentLoaded", async () => {
+
             renderSidebar('Cajero');
         
             try {
@@ -24,8 +25,9 @@ async function verificarUsuario() {
             } catch (error) {
                 console.error('Error al cargar los pedidos:', error);
             }
-        });
     }
 
 }
+
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 

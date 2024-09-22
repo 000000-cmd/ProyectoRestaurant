@@ -5,13 +5,14 @@ import { renderSidebar } from "./sideBarComponent.js";
 import { crearTabContentAdmin } from './renderTables/renderPlatesMenu.js';
 import { crearTab } from './renderTables/renderPlatesMenu.js';
 import { manejarNavegacionTabs } from './renderTables/renderPlatesMenu.js';
+import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
     const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener('DOMContentLoaded', async () => {
+
             renderSidebar('Administrador');
             try {
                 // Obtener todas las categorías y los platos
@@ -60,14 +61,11 @@ async function verificarUsuario() {
             } catch (error) {
                 console.error('Error al inicializar la página:', error);
             }
-        
-        });
-        
     }
 }
 
 
-verificarUsuario();
+document.addEventListener('DOMContentLoaded', verificarUsuario);
 
 
 

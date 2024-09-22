@@ -1,12 +1,14 @@
 import { renderSidebar } from "./sideBarComponent.js";
 import { obtenerHistoricoPedidos } from "../../SolicitudesAPI/traerHistorico.js";
 import { renderizarTablaHistoricoPedidos } from "./renderTables/renderTableHistorico.js";
+import { verificarRol } from "./verificarSesion.js";
+
+
 async function verificarUsuario() {
     const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener("DOMContentLoaded", async () => {
             renderSidebar('Administrador');
 
             // Variables globales de paginación
@@ -152,9 +154,7 @@ async function verificarUsuario() {
 
             // Cargar la página inicial
             cargarPedidos(paginaActual);
-        });
-
-
-    }
+        };
 }
 
+document.addEventListener("DOMContentLoaded", verificarUsuario);

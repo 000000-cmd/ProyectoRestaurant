@@ -2,6 +2,7 @@ import { renderSidebar } from "../sideBarComponent.js";
 import { obtenerPlatoPorId } from "../../../SolicitudesAPI/gestionarPlatos.js";
 import { obtenerReporte } from "../../../SolicitudesAPI/gestionarReportes.js";
 import { renderImage } from "../componentes/renderImage.js";
+import { verificarRol } from './verificarSesion.js';
 
 
 async function verificarUsuario() {
@@ -9,13 +10,12 @@ async function verificarUsuario() {
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {
-        document.addEventListener("DOMContentLoaded", () => {
+
             renderSidebar('Administrador');
             mostrarTablaHistorico();
-        });
     }
 }
-
+document.addEventListener("DOMContentLoaded", verificarUsuario);
 async function mostrarTablaHistorico() {
     try {
         // Obtener el reporte mensual del mes actual
