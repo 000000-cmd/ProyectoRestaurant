@@ -329,24 +329,35 @@ h1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual ancho */
     grid-auto-rows: auto; /* Filas automáticas según el contenido */
-    gap: 10%; /* Espacio entre columnas y filas */
+    gap: 5%; /* Espacio entre columnas y filas */
     justify-items: center;
 }
 
 .platosCategoria{
-    border: 1px solid yellow;
-    padding: 10px    
+    border: 2px solid var(--background2);
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .plato_seccion{
     border: 1px solid var(--primario);
-    width: 24vw;
-    height: 10vh;
+    width: 27vw;
+    height: 20vh;
     display: flex;
     margin-top: 1rem;
     transition: 0.5s background-color ;
     
 }
+
+.img_container{
+    width: 40%;
+    height: 40%;
+}
+.img_container img{
+    width: 120px;
+    height: 80px;
+}
+
 .infoplato{
     width: 40%;
 }
