@@ -1,4 +1,4 @@
-import { cargarPedidosMesero } from "../../SolicitudesAPI/gestionarPedidos.js"
+import { cargarPedidosMesero ,eliminarPedidoPorMesa} from "../../SolicitudesAPI/gestionarPedidos.js"
 import { renderSidebar } from "./sideBarComponent.js"
 import { renderTablaEditarPedidos } from "./renderTables/renderEditarPedidos.js";
 import { verificarRol } from './verificarSesion.js';
@@ -36,10 +36,14 @@ async function verificarUsuario() {
             const borrarButtons = document.querySelectorAll('button[eliminar-pedido]');
             borrarButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
-                    const mesaId = button.getAttribute('eliminar-pedido'); // Obtiene el ID del pedido
+                    let mesaId = button.getAttribute('eliminar-pedido'); // Obtiene el ID del pedido
+                    console.log(mesaId);
+                    
                     if (mesaId) {
-        
-                        window.location.href = ``;
+                        const numero = mesaId.replace("mesa", '');
+                        mesaId= parseInt(numero)
+                        eliminarPedidoPorMesa(mesaId)
+                        location.reload(true);
                     }
                 });
             });

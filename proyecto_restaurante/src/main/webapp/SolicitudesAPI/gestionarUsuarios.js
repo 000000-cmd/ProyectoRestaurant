@@ -28,7 +28,44 @@ import { URLs } from "./URL.js";
  *     .then(response => console.log('Usuario actualizado exitosamente:', response))
  *     .catch(error => console.error('Error al actualizar el usuario:', error));
  */
-export async function crearActualizarUsuario(usuario, action, id) {
+
+
+export async function crearUsuario(usuario, action) {
+    try {
+
+        console.log(usuario);
+        
+        const payload = {
+            nombre_usuario: usuario.nombre_usuario,
+            rol: usuario.id_rol,
+            password: usuario.password
+        };
+        let url = `${URLs}/usuarios`;
+        let method = 'POST';
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al ${action === "edit" ? "editar" : "añadir"} el usuario: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data.status !== 'success') {
+            throw new Error(`Error en la respuesta del servidor: ${data.message}`);
+        }
+        return data;
+    } catch (error) {
+        console.error('Error al actualizar el usuario:', error);
+        throw error;
+    }
+}
+
+export async function ActualizarUsuario(usuario, action, id) {
     try {
         const payload = {
             nombre_usuario: usuario.nombre_usuario,

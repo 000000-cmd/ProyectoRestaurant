@@ -4,7 +4,7 @@ import { cargarPedidosCajero } from "../../SolicitudesAPI/gestionarPedidos.js";
 import { verificarRol } from './verificarSesion.js';
 
 async function verificarUsuario() {
-    const rolRequerido = 'Chef'; // Cambia esto según el rol que necesites
+    const rolRequerido = 'Cajero'; // Cambia esto según el rol que necesites
     const tieneAcceso = await verificarRol(rolRequerido);
 
     if (tieneAcceso) {

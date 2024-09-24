@@ -2,20 +2,15 @@ import { renderSidebar } from "../sideBarComponent.js";
 import { obtenerPlatoPorId } from "../../../SolicitudesAPI/gestionarPlatos.js";
 import { obtenerReporte } from "../../../SolicitudesAPI/gestionarReportes.js";
 import { renderImage } from "../componentes/renderImage.js";
-import { verificarRol } from './verificarSesion.js';
 
+document.addEventListener("DOMContentLoaded", ()=>{
 
-async function verificarUsuario() {
-    const rolRequerido = 'Admin'; // Cambia esto según el rol que necesites
-    const tieneAcceso = await verificarRol(rolRequerido);
+    renderSidebar('Administrador');
+    mostrarTablaHistorico();
+   
+    
+});
 
-    if (tieneAcceso) {
-
-            renderSidebar('Administrador');
-            mostrarTablaHistorico();
-    }
-}
-document.addEventListener("DOMContentLoaded", verificarUsuario);
 async function mostrarTablaHistorico() {
     try {
         // Obtener el reporte mensual del mes actual
@@ -66,6 +61,7 @@ async function mostrarTablaHistorico() {
         console.error('Error al mostrar el historial:', error);
     }
 }
+
 
 
 // Función para calcular el porcentaje de pedidos

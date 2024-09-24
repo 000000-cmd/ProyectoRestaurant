@@ -11,13 +11,24 @@ export function setupFormListeners() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const imageInput = document.getElementById('imageUpload');
+
+    if (imageInput) {
+        imageInput.addEventListener('change', previewImage);
+    }
+});
 export function previewImage(event) {
+    const input = event.target;
     const reader = new FileReader();
     reader.onload = function () {
-        const output = document.querySelector('.custom-file-upload'); // Selecciona el label
-        output.style.backgroundImage = `url(${reader.result})`; // Aplica la imagen como fondo
-        output.querySelector('h2').style.display = 'none'; // Oculta el texto "Añadir Plato"
-    };
-    reader.readAsDataURL(event.target.files[0]);
+        // Establecer la imagen como fondo del label
+        const label = input.closest('.custom-file-upload');
+        label.style.backgroundImage = `url(${reader.result})`;
+        label.style.color = 'transparent'; // Opcional: Oculta el texto si lo deseas
+        label.style.border = 'none'; // Opcional: Remueve el borde
+    }
+    if (input.files && input.files[0]) {
+        reader.readAsDataURL(input.files[0]); // Lee el archivo seleccionado
+    }
 }
-

@@ -18,6 +18,7 @@
                 <form class="config_form" method="post" id="addDish"> 
                     <input type="hidden" id="id-plate" value="12321">
                     <div class="form_content">
+                    <input type="hidden" id="loaded_img_plato" name="loaded_img_plato" value="">
                     <label for="imageUpload" class="custom-file-upload">
                         <input  type="file" id="imageUpload" name="img_plato" accept="image/*">
                         <h2>Añadir Plato</h2>
@@ -25,7 +26,8 @@
                     <div class=" config_inputs">
                         <div class="singleInputs form_input">
                             <label class="h2" for="select_plate">Categoría del Plato</label>
-                            <select name="id_categoria" id="select_plate"></select>
+                            <select name="id_categoria" id="select_plate">
+                            </select>
                         
                             <label class="h2" for="plate_name">Nombre del Plato</label>
                             <input type="text" name="nombre_plato" id="plate_name" required>

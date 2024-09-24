@@ -80,7 +80,7 @@ export function crearTabContentAdmin(id, container, platos) {
 
 export function crearTabContentMesero(id, container, platos) {
     const tabContent = document.createElement('div');
-    tabContent.classList.add('tab-content', 'custom-scrollbar');
+    tabContent.classList.add('tab-content', 'custom-scrollbar' , 'tab-mesero');
     tabContent.id = id;
     if (id === 'todos') {
         tabContent.classList.add('active'); // El primer contenido activo por defecto

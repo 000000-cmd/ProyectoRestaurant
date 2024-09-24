@@ -74,10 +74,10 @@ export async function cargarPedidosMesero() {
     console.log('Pedidos cargados:', pedidos);
 
     // Filtrar por estado 'Preparado'
-    const pedidosPreparados = pedidos.filter(pedido => pedido.estado_pedido === 'En preparacion');
-    console.log('Pedidos en estado "Preparado":', pedidosPreparados.map(({ estado_pedido, ...resto }) => resto));
+    const pedidosEspera = pedidos.filter(pedido => pedido.estado_pedido === 'En espera');
+    console.log('Pedidos en estado "Espera":', pedidosEspera.map(({ estado_pedido, ...resto }) => resto));
 
-    return pedidosPreparados.map(({ estado_pedido, ...resto }) => resto);
+    return pedidosEspera.map(({ estado_pedido, ...resto }) => resto);
 }
 
 

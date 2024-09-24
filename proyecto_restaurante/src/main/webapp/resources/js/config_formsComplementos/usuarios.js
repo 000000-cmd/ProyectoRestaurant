@@ -1,5 +1,5 @@
 // usuarios.js
-import { crearActualizarUsuario, obtenerUsuarioPorID } from "../../../SolicitudesAPI/gestionarUsuarios.js";
+import { ActualizarUsuario, obtenerUsuarioPorID,crearUsuario } from "../../../SolicitudesAPI/gestionarUsuarios.js";
 import { obtenerRoles } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
 import { validarTexto } from "../ValidarFormularios.js";
 
@@ -101,7 +101,7 @@ async function cargarRolesEnSelect(rolSelect) {
 
         roles.forEach(rol => {
             const option = document.createElement('option');
-            option.value = rol.id_rol; // Usa el ID del rol como valor
+            option.value = rol.rol; // Usa el ID del rol como valor
             option.textContent = rol.rol; // Usa el nombre del rol
             rolSelect.appendChild(option);
         });
@@ -142,11 +142,11 @@ async function AddUsuario(formulario) {
 
     const usuario = {
         nombre_usuario: nombreUsuario,
-        id_rol: parseInt(rolUsuario),
+        id_rol: rolUsuario,
         password: password
     };
 
-    const respuesta = await crearActualizarUsuario(usuario, "add")
+    const respuesta = await crearUsuario(usuario, "add")
 
     if (respuesta.status === 'success') {
         window.location.assign('conf_usuarios.html');
@@ -171,7 +171,7 @@ async function EditUsuario(formulario) {
         password: password
     };
 
-    const respuesta = await crearActualizarUsuario(usuario, "edit", id)
+    const respuesta = await ActualizarUsuario(usuario, "edit", id)
     if (respuesta.status === 'success') {
         window.location.assign('conf_usuarios.html');
     }

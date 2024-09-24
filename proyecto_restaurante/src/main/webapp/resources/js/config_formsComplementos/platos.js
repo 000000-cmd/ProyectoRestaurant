@@ -116,7 +116,8 @@ async function cargarDatosDelPlato(IdPlato, formulario) {
         const response = await fetch(`${URLs}/platos/${IdPlato}`);
         const datos = await response.json();
         const data = datos.data;
-
+        console.log(data);
+        
         const id = formulario.querySelector("#id-plate");
         const imagenInput = formulario.querySelector("#imageUpload");
         const categoriaSelect = formulario.querySelector("#select_plate");
@@ -126,7 +127,7 @@ async function cargarDatosDelPlato(IdPlato, formulario) {
         const descripcionPlato = formulario.querySelector("#plate_details");
 
         id.value = data.id_plato;
-        categoriaSelect.value = data.categoria;
+        categoriaSelect.value = data.id_categoria;
         nombrePlato.value = data.nombre_plato;
         precioPlato.value = data.precio;
         disponiblePlato.value = data.disponibilidad;

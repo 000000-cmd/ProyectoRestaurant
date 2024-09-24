@@ -81,8 +81,13 @@
     gap: 20px;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 95vh; /* Ajusta este valor según tus necesidades */
+    max-height: 55vh; /* Ajusta este valor según tus necesidades */
 }
+
+.tab-mesero{
+    max-height: 99vh;
+}
+
 /* Contenido activo */
 .tab-content.active {
     display: grid; /* Muestra el contenido activo */

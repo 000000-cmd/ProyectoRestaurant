@@ -1,5 +1,6 @@
 import { obtenerRoles, eliminarRol } from "../../../SolicitudesAPI/consultasSelect/gestionarRoles.js";
-import { verificarRol } from './verificarSesion.js';
+import { verificarRol } from "../verificarSesion.js";
+
 
 async function verificarUsuario() {
     const rolRequerido = 'Administrador'; // Cambia esto según el rol que necesites
