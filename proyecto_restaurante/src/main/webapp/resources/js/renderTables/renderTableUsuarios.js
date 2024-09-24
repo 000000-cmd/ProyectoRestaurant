@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', verificarUsuario);
 
 function llenarTablaUsuarios(datos) {
     const tbody = document.querySelector('.tabla tbody');
+    tbody.classList.add('tabla_users')
     datos.forEach(usuario => {
         // Crea una nueva fila
         const row = document.createElement('tr');
@@ -31,7 +32,7 @@ function llenarTablaUsuarios(datos) {
         row.appendChild(usuarioTd);
 
         const contrasenaTd = document.createElement('td');
-        contrasenaTd.textContent = usuario.password;
+        contrasenaTd.textContent = '***********';
         row.appendChild(contrasenaTd);
 
         // Crea la celda para los botones de acción
@@ -61,7 +62,9 @@ function llenarTablaUsuarios(datos) {
 }
 
 async function eliminarusuario(usuario) {
-    const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el usuario de ${usuario.usuario} ?`);
+    console.log(usuario);
+    
+    const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el usuario: ${usuario.nombre_usuario} ?`);
 
     if (!confirmacion) {
         return; // Cancelar la eliminación si el usuario no confirma
@@ -75,7 +78,7 @@ async function eliminarusuario(usuario) {
         if (response.status === 'success') {
             const fila = document.querySelector(`[data-usuario="${usuario.id_usuario}"]`)
             fila.remove();  
-            alert(`El usuario ${usuario.usuario} ha sido eliminada exitosamente.`);
+            alert(`El usuario ${usuario.nombre_usuario} ha sido eliminada exitosamente.`);
 
         } else {
             alert(`Error al eliminar la categoría: ${response.message}`)

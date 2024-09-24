@@ -52,6 +52,7 @@ async function crearFila(pedido) {
     
     // Crear una fila
     const fila = document.createElement('tr');
+    fila.setAttribute("data-pedido",pedido.mesa)
 
     // Crear y agregar celda para Mesa
     const celdaMesa = document.createElement('td');

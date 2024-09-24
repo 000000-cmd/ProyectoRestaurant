@@ -4,6 +4,13 @@
     justify-content: right;
     
 }
+.addUser{
+    width: 20%;
+}
+
+.tabla_users{
+    max-height: 60vh;
+}
 
 .new_categoria__button{
     width: 30%;

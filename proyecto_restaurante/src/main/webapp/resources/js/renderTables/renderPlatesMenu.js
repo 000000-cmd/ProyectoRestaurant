@@ -120,7 +120,7 @@ export function crearTabContentMesero(id, container, platos) {
         console.log("¡No hay pedidos pendientes");
         const texto= document.createElement('h2')
         texto.classList.add("textoTablaVacia")
-        texto.textContent="Sin platos... ¿Que vendes entonces? >:("
+        texto.textContent="Al parecer no hay platos en esta categoria!"
         tabContent.appendChild(texto)
     }
 

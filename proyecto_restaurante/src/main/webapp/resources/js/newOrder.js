@@ -45,15 +45,17 @@ async function verificarUsuario() {
                 // Crear la primera tab para mostrar todos los platos
                 crearTab('Todos', 'todos', tabsContainer);
                 crearTabContentMesero('todos', contentContainer, platos);
-                document.querySelectorAll('.card_container').forEach(card => {
-                    card.addEventListener('click', () => {
+
+ /*               document.querySelectorAll('.card_container').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        console.log(e.target);
                         const plateId = card.getAttribute('data-plate').split('-')[1]; // Obtiene el ID del plato
                         const selectedPlate = platos.find(plato => plato.id_plato == plateId); // Encuentra el plato correspondiente
                         if (selectedPlate) {
                             addOrderItem(selectedPlate); // Llama a la función para agregar el item de pedido
                         }
                     });
-                });
+                });*/
         
                 // Crear una tab y contenido para cada categoría
                 categorias.forEach(categoria => {
@@ -67,8 +69,13 @@ async function verificarUsuario() {
         
                 // Añadir funcionalidad al botón de "Añadir nuevo plato"
                 document.querySelectorAll('.card_container').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        // Aquí podrías abrir un modal o redirigir a un formulario de creación de platos
+                    btn.addEventListener('click', (e) => {
+                                                console.log(e.target);
+                        const plateId = btn.getAttribute('data-plate').split('-')[1]; // Obtiene el ID del plato
+                        const selectedPlate = platos.find(plato => plato.id_plato == plateId); // Encuentra el plato correspondiente
+                        if (selectedPlate) {
+                            addOrderItem(selectedPlate); // Llama a la función para agregar el item de pedido
+                        }
                         console.log('Abrir modal para añadir nuevo plato');
                     });
                 });

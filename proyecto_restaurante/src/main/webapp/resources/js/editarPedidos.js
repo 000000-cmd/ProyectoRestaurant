@@ -37,13 +37,16 @@ async function verificarUsuario() {
             borrarButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
                     let mesaId = button.getAttribute('eliminar-pedido'); // Obtiene el ID del pedido
-                    console.log(mesaId);
-                    
                     if (mesaId) {
                         const numero = mesaId.replace("mesa", '');
                         mesaId= parseInt(numero)
+                        const verificar= confirm(`¿Seguro quieres eliminar el pedido de la mesa  ${mesaId}?`)
+                        if(!verificar){
+                            return
+                        }
                         eliminarPedidoPorMesa(mesaId)
-                        location.reload(true);
+                        const fila = document.querySelector(`[data-pedido="${mesaId}"]`);
+                        fila.remove(); 
                     }
                 });
             });

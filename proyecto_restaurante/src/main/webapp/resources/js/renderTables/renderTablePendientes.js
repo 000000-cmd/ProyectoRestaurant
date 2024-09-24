@@ -64,11 +64,19 @@ function crearFila(pedido) {
     const verPedidoBtn = document.createElement('button');
     verPedidoBtn.classList.add('primary_button');
     verPedidoBtn.onclick = async () => {
-        if (await cambiarEstado(pedido.mesa, 'En preparacion')) {
-            window.location.href = `verPedido.html?id-mesa=${pedido.mesa}`;
-        } else {
-            alert('No se pudo cambiar el estado de la pagina');
+        if(estadoNormalizado === 'En preparacion'){
+            const verificar= confirm('Al parecer este pedido podria estar siendo realidazo por otro chef ¿Deseas Continuar?')
+
+            if (!verificar){
+                return
+            }
+            if (await cambiarEstado(pedido.mesa, 'En preparacion')) {
+                window.location.href = `verPedido.html?id-mesa=${pedido.mesa}`;
+            } else {
+                alert('No se pudo cambiar el estado de la pagina');
+            }
         }
+
     };
     verPedidoBtn.textContent = 'Ver pedido';
     accionesTd.appendChild(verPedidoBtn);

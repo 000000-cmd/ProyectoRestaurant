@@ -120,7 +120,7 @@ async function cargarDatosDelUsuario(idUsuario, formulario) {
 
         id.value = datos.id_usuario || '';
         nombre.value = datos.nombre_usuario || '';
-        password.value = datos.password || '';
+
 
         // Ajustar el valor seleccionado del rol después de cargar los roles
         rol.value = datos.rol || '';

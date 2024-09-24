@@ -1,6 +1,6 @@
 // Asegúrate de ajustar la ruta si es necesario
 import { obtenerCategorias } from '../../SolicitudesAPI/consultasSelect/gestionarCategorias.js'; // Asegúrate de ajustar la ruta si es necesario
-import { obtenerPlatos } from '../../SolicitudesAPI/gestionarPlatos.js';
+import { obtenerPlatosEditar } from '../../SolicitudesAPI/gestionarPlatos.js';
 import { renderSidebar } from "./sideBarComponent.js";
 import { crearTabContentAdmin } from './renderTables/renderPlatesMenu.js';
 import { crearTab } from './renderTables/renderPlatesMenu.js';
@@ -17,7 +17,7 @@ async function verificarUsuario() {
             try {
                 // Obtener todas las categorías y los platos
                 const categorias = await obtenerCategorias();
-                const platos = await obtenerPlatos();
+                const platos = await obtenerPlatosEditar();
                 console.log(platos);
         
                 // Crear las tabs para las categorías

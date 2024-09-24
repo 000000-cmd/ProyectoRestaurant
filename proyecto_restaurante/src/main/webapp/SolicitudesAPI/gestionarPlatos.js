@@ -2,7 +2,7 @@
 const endpointUrl = 'http://localhost:8080/platos'; 
 
 // Función para obtener todos los platos
-export async function obtenerPlatos() {
+export async function obtenerPlatosEditar() {
     try {
         // Realiza la solicitud GET al endpoint
         const response = await fetch(endpointUrl);
@@ -43,6 +43,54 @@ export async function obtenerPlatos() {
 
         // Aquí puedes devolver los datos procesados o manejarlos como necesites
         return platosConImagenes;
+    } catch (error) {
+        // Maneja los errores
+        console.error('Error al procesar los platos:', error);
+    }
+}
+
+
+// Función para obtener todos los platos
+export async function obtenerPlatos() {
+    try {
+        // Realiza la solicitud GET al endpoint
+        const response = await fetch(endpointUrl);
+
+        // Verifica si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error('Error al obtener los platos: ' + response.statusText);
+        }
+
+        // Convierte la respuesta a JSON
+        const data = await response.json();
+        console.log(data);
+
+        // Verifica si la respuesta contiene un estado de éxito
+        if (data.status !== 'success') {
+            throw new Error('Error en la respuesta del servidor: ' + data.message);
+        }
+
+        // Procesar los datos y almacenar las imágenes
+        const platosDisponibles = data.data
+            .filter(plato => plato.disponibilidad === 'Disponible') // Filtra solo los platos disponibles
+            .map(plato => {
+                // Devolver un objeto con los detalles del plato y la imagen en base64
+                return {
+                    id_plato: plato.id_plato,
+                    nombre_plato: plato.nombre_plato,
+                    descripcion: plato.descripcion,
+                    precio: plato.precio,
+                    disponibilidad: plato.disponibilidad,
+                    categoria: plato.categoria,
+                    img_plato: plato.img_plato // Almacena la imagen en formato base64
+                };
+            });
+
+        // Muestra los datos procesados en la consola
+        console.log(platosDisponibles);
+
+        // Aquí puedes devolver los datos procesados o manejarlos como necesites
+        return platosDisponibles;
     } catch (error) {
         // Maneja los errores
         console.error('Error al procesar los platos:', error);

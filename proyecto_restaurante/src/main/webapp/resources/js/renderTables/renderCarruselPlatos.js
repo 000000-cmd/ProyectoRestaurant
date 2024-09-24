@@ -85,11 +85,18 @@ async function generarDiapositivas(pedido, platos) {
         const detallesPlato = pedido.detalles.filter(detalle => detalle.id_plato === contenido.id_plato);
 
         // Crear los elementos para mostrar los detalles específicos del plato
-        detallesPlato.forEach(detalle => {
+        if(detallesPlato.length >0){
+            detallesPlato.forEach(detalle => {
+                const detalleTexto = document.createElement('p');
+                detalleTexto.textContent = ` ${detalle.cantidad_platos_modificacion}X  - ${detalle.detalles_plato}`;
+                details.appendChild(detalleTexto);
+            });
+        } else{
             const detalleTexto = document.createElement('p');
-            detalleTexto.textContent = ` ${detalle.cantidad_platos_modificacion}X  - ${detalle.detalles_plato}`;
+            detalleTexto.textContent = `No hay detalles adicionales a este plato`;
             details.appendChild(detalleTexto);
-        });
+        }
+
 
         detailsContent.appendChild(img);
         detailsContent.appendChild(details);

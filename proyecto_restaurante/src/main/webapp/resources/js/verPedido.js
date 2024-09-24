@@ -1,4 +1,4 @@
-import { renderSidebar } from "./sideBarComponent.js";
+    import { renderSidebar } from "./sideBarComponent.js";
 import { buscarPedido } from "./renderTables/renderCarruselPlatos.js"; // Importa la función buscarPedido
 import { cambiarEstado } from "../../../SolicitudesAPI/gestionarPedidos.js"; // Importa la función para cambiar estado
 import { verificarRol } from './verificarSesion.js';
@@ -9,8 +9,6 @@ async function verificarUsuario() {
 
     if (tieneAcceso) {
             renderSidebar('Chef');
-
-
             // Obtiene el ID de la mesa de los parámetros de la URL
             const urlParams = new URLSearchParams(window.location.search);
             const idMesa = urlParams.get('id-mesa');
@@ -23,7 +21,6 @@ async function verificarUsuario() {
             } catch (error) {
                 console.error('Error al buscar el pedido:', error);
             }
-
             // Maneja los botones de "Plato realizado"
             const primaryButtons = document.querySelectorAll('.primary_button');
 
@@ -60,7 +57,7 @@ async function verificarUsuario() {
                     try {
                         await cambiarEstado(idMesa, 'Preparado'); // Cambia el estado a 'Preparado'
                         alert('Todos los platos están listos para ser despachados y el estado ha sido actualizado.');
-                        // Aquí puedes añadir la lógica para redirigir o actualizar la interfaz
+                        window.location.href= 'pedidos_Pendientes.html'
                     } catch (error) {
                         console.error(`Error al cambiar el estado de la mesa ${idMesa} a 'Preparado':, error`);
                         alert('Error al cambiar el estado de los platos.');
